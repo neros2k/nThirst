@@ -4,7 +4,8 @@ public interface IEngine {
     void setWaterLevel(Float NEW_LEVEL);
     void addActiveModifier(IModifier MODIFIER);
     void removeModifier(IModifier MODIFIER);
-    void tick();
+    void start();
+    void stop();
     Float getWaterLevel();
     List<IModifier> getModifierList();
 }
