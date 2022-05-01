@@ -1,13 +1,20 @@
 package n2k.nthirst.base;
 public enum EModifiers {
-    WALK((ENGINE, EVENT) -> -0.1F),
-    ON_SUN((ENGINE, EVENT) -> -0.5F),
-    IN_FIRE((ENGINE, EVENT) -> -3F);
+    SHOW_ACTION_BAR((ENGINE) -> 0F, 200L),
+    WALK((ENGINE) -> -0.001F);
     private final IModifier MODIFIER;
-    EModifiers(IModifier MODIFIER) {
+    private final Long DURATION;
+    EModifiers(IModifier MODIFIER, Long DURATION) {
         this.MODIFIER = MODIFIER;
+        this.DURATION = DURATION;
+    }
+    EModifiers(IModifier MODIFIER) {
+        this(MODIFIER, 0L);
     }
     public IModifier getModifier() {
         return this.MODIFIER;
+    }
+    public Long getDuration() {
+        return this.DURATION;
     }
 }

@@ -1,11 +1,15 @@
 package n2k.nthirst.base;
+import org.bukkit.entity.Player;
 import java.util.List;
-public interface IEngine {
-    void setWaterLevel(Float NEW_LEVEL);
-    void addActiveModifier(IModifier MODIFIER);
-    void removeModifier(IModifier MODIFIER);
+public interface IEngine extends IInitializable {
     void start();
     void stop();
+    void tick();
+    void setWaterLevel(Float NEW_LEVEL);
+    void addActiveModifier(EModifiers MODIFIER);
+    void removeModifier(EModifiers MODIFIER);
     Float getWaterLevel();
-    List<IModifier> getModifierList();
+    List<EModifiers> getModifierList();
+    IInteractor getInteractor();
+    Player getPlayer();
 }

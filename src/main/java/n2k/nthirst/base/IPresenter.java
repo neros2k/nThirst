@@ -1,4 +1,5 @@
 package n2k.nthirst.base;
-public interface IPresenter extends IInitializable {
+import org.bukkit.event.Listener;
+public interface IPresenter extends IInitializable, Listener {
     IInteractor getInteractor();
 }
