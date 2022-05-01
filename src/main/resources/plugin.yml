@@ -1,0 +1,5 @@
+name: nThirst
+version: '${project.version}'
+main: n2k.nthirst.nThirst
+api-version: 1.17
+authors: [ n2k ]
