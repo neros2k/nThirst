@@ -1,16 +1,13 @@
 package n2k.nthirst.core.presenter;
 import n2k.nthirst.base.APresenter;
 import n2k.nthirst.base.EModifiers;
+import n2k.nthirst.base.IEngine;
 import n2k.nthirst.base.IInteractor;
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
-import java.util.HashMap;
-import java.util.Map;
 public class WalkPresenter extends APresenter {
-    private final Map<String, Integer> SESSION_MAP = new HashMap<>();
     public WalkPresenter(IInteractor INTERACTOR) {
         super(INTERACTOR);
     }
@@ -25,18 +22,11 @@ public class WalkPresenter extends APresenter {
         this.reload(EVENT.getPlayer().getName());
     }
     private void reload(String NAME) {
-        if(this.SESSION_MAP.containsKey(NAME)) {
-            Bukkit.getScheduler().cancelTask(this.SESSION_MAP.get(NAME));
+        IEngine ENGINE = this.getInteractor().getEngine(NAME);
+        if(!ENGINE.getModifierList().contains(EModifiers.WALK)) {
+            ENGINE.addActiveModifier(EModifiers.WALK);
         } else {
-            this.getInteractor().getEngine(NAME).addActiveModifier(EModifiers.WALK);
+            ENGINE.removeModifier(EModifiers.WALK);
         }
-        Integer TASK_ID = Bukkit.getScheduler().runTaskLaterAsynchronously(
-                this.getInteractor().getPlugin(),
-                () -> {
-                    this.getInteractor().getEngine(NAME).removeModifier(EModifiers.WALK);
-                    this.SESSION_MAP.remove(NAME);
-                }, 20L
-        ).getTaskId();
-        this.SESSION_MAP.put(NAME, TASK_ID);
     }
 }

@@ -3,10 +3,11 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 public enum EModifiers {
     SHOW_ACTION_BAR((ENGINE) -> {
-        ENGINE.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ENGINE.getWaterLevel().toString()));
+        String TEXT = String.format("%.1f", ENGINE.getWaterLevel());
+        ENGINE.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(TEXT));
         return 0F;
-    }, (ENGINE) -> 200L),
-    WALK((ENGINE) -> -0.01F);
+    }, (ENGINE) -> 20L),
+    WALK((ENGINE) -> -0.001F, (ENGINE) -> 5L);
     private final IModifier MODIFIER;
     private final IDuration DURATION;
     EModifiers(IModifier MODIFIER, IDuration DURATION) {
@@ -14,7 +15,7 @@ public enum EModifiers {
         this.DURATION = DURATION;
     }
     EModifiers(IModifier MODIFIER) {
-        this(MODIFIER, (ENGINE) -> null);
+        this(MODIFIER, null);
     }
     public IModifier getModifier() {
         return this.MODIFIER;

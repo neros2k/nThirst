@@ -3,6 +3,7 @@ import n2k.nthirst.base.APresenter;
 import n2k.nthirst.base.IEngine;
 import n2k.nthirst.base.IInteractor;
 import n2k.nthirst.base.ISaver;
+import n2k.nthirst.core.presenter.EventPresenter;
 import n2k.nthirst.core.presenter.WalkPresenter;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -23,7 +24,10 @@ public class Interactor implements IInteractor {
     }
     @Override
     public void init() {
-        this.PRESENTER_LIST.add(new WalkPresenter(this));
+        this.PRESENTER_LIST.addAll(List.of(
+                        new WalkPresenter(this),
+                        new EventPresenter(this)
+        ));
         this.PRESENTER_LIST.forEach(APresenter::init);
         this.SAVER.init();
     }
