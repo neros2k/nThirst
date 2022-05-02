@@ -16,10 +16,10 @@ public class Interactor implements IInteractor {
     private final ISaver SAVER;
     private final JavaPlugin PLUGIN;
     public Interactor(JavaPlugin PLUGIN) {
+        this.PLUGIN = PLUGIN;
         this.ENGINE_MAP = new HashMap<>();
         this.PRESENTER_LIST = new ArrayList<>();
         this.SAVER = new Saver(this);
-        this.PLUGIN = PLUGIN;
     }
     @Override
     public void init() {

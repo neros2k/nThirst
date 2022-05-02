@@ -6,7 +6,7 @@ public enum EModifiers {
         ENGINE.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ENGINE.getWaterLevel().toString()));
         return 0F;
     }, (ENGINE) -> 200L),
-    WALK((ENGINE) -> -0.001F);
+    WALK((ENGINE) -> -0.01F);
     private final IModifier MODIFIER;
     private final IDuration DURATION;
     EModifiers(IModifier MODIFIER, IDuration DURATION) {
