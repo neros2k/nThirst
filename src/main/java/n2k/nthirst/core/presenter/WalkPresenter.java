@@ -5,6 +5,7 @@ import n2k.nthirst.base.IInteractor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +13,11 @@ public class WalkPresenter extends APresenter {
     private final Map<String, Integer> SESSION_MAP = new HashMap<>();
     public WalkPresenter(IInteractor INTERACTOR) {
         super(INTERACTOR);
+    }
+    @Override
+    public void init() {
+        JavaPlugin PLUGIN = this.getInteractor().getPlugin();
+        PLUGIN.getServer().getPluginManager().registerEvents(this, PLUGIN);
     }
     @EventHandler
     public void onPlayerMove(@NotNull PlayerMoveEvent EVENT) {

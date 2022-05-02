@@ -5,10 +5,6 @@ public abstract class APresenter implements IInitializable, Listener {
     public APresenter(IInteractor INTERACTOR) {
         this.INTERACTOR = INTERACTOR;
     }
-    @Override
-    public void init() {
-
-    }
     public IInteractor getInteractor() {
         return this.INTERACTOR;
     }
