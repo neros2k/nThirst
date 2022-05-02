@@ -19,7 +19,6 @@ public class Engine implements IEngine {
     @Override
     public void init() {
         this.MODIFIER_LIST = new ArrayList<>();
-        this.setWaterLevel(100F);
     }
     @Override
     public void start() {
