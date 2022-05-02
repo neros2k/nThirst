@@ -44,8 +44,7 @@ public final class Engine implements IEngine {
     public void tick() {
         final Float[] FINAL_RESULT = {0F};
         this.MODIFIER_LIST.forEach((MODIFIER) -> FINAL_RESULT[0] = MODIFIER.getModifier().getValue(this, null));
-        this.PREV_WATER_LEVEL = this.WATER_LEVEL;
-        this.addWaterLevel(this.WATER_LEVEL + FINAL_RESULT[0]);
+        this.addWaterLevel(FINAL_RESULT[0]);
         if(!EModifiers.ACTION_BAR.isPermanent().get(this) && this.getInteractor().getConfig().ENABLE_AB) {
             String VISIBILITY = this.getInteractor().getConfig().VISIBILITY;
             if(!Objects.equals(String.format(VISIBILITY, this.WATER_LEVEL),
@@ -56,11 +55,12 @@ public final class Engine implements IEngine {
     }
     @Override
     public void setWaterLevel(Float NEW_LEVEL) {
+        this.PREV_WATER_LEVEL = this.WATER_LEVEL;
         this.WATER_LEVEL = NEW_LEVEL;
     }
     @Override
     public void addWaterLevel(Float VALUE) {
-        if(VALUE > this.WATER_LEVEL) VALUE = (float) this.getInteractor().getConfig().MAX_WATER_LEVEL;
+        if(VALUE > (float) this.getInteractor().getConfig().MAX_WATER_LEVEL) return;
         this.setWaterLevel(this.WATER_LEVEL + VALUE);
     }
     @Override

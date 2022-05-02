@@ -5,3 +5,4 @@ api-version: 1.17
 authors: [ n2k ]
 softdepend:
   - JSONConfigAPI
+  - PlaceholderAPI

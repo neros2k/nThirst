@@ -38,7 +38,6 @@ public final class SQLite implements ISQLite {
     public Connection getSqlConnection() {
         Logger LOGGER = this.PLUGIN.getLogger();
         if(!new File(this.PLUGIN.getDataFolder(), this.DATABASE_NAME).exists()) {
-            this.PLUGIN.getLogger().info("Creating: "+this.DATABASE_NAME);
             this.PLUGIN.saveResource(this.DATABASE_NAME, false);
         }
         File DATA_FOLDER = new File(this.PLUGIN.getDataFolder(), this.DATABASE_NAME);

@@ -6,9 +6,11 @@ import n2k.nthirst.base.IInteractor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import java.util.Arrays;
 public final class EventPresenter extends APresenter {
     public EventPresenter(IInteractor INTERACTOR) {
         super(INTERACTOR);
@@ -30,6 +32,24 @@ public final class EventPresenter extends APresenter {
     public void onPlayerEating(@NotNull PlayerItemConsumeEvent EVENT) {
         if(EVENT.isCancelled()) return;
         IEngine ENGINE = this.getInteractor().getEngine(EVENT.getPlayer().getName());
-        ENGINE.addWaterLevel(EModifiers.FOOD.getModifier().getValue(ENGINE, new String[]{EVENT.getItem().getType().toString()}));
+        String ITEM = EVENT.getItem().getType().toString();
+        Arrays.stream(this.getInteractor().getConfig().MODIFIERS.FOOD).forEach(
+                FOOD -> {
+                    if(FOOD.TYPE.equals(ITEM)) ENGINE.addWaterLevel(FOOD.VALUE);
+                }
+        );
+    }
+    @EventHandler
+    public void onPlayerMove(@NotNull PlayerMoveEvent EVENT) {
+        IEngine ENGINE = this.getInteractor().getEngine(EVENT.getPlayer().getName());
+        if(EVENT.isCancelled()) return;
+        this.moveReload(ENGINE);
+    }
+    private void moveReload(@NotNull IEngine ENGINE) {
+        if(!ENGINE.getModifierList().contains(EModifiers.WALK)) {
+            ENGINE.addActiveModifier(EModifiers.WALK);
+        } else {
+            ENGINE.removeModifier(EModifiers.WALK);
+        }
     }
 }

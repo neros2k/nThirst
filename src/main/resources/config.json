@@ -1,8 +1,8 @@
 {
   "ENABLE_AB": true,
-  "AB_MESSAGE": "[ %w ]",
-  "DATAFILE_NAME": "thirst.db",
-  "TABLE_NAM": "water_level",
+  "AB_MESSAGE": "[ {level} ]",
+  "DATAFILE_NAME": "thirst_database.db",
+  "TABLE_NAME": "water_level",
   "AB_FORMAT": "%.1f",
   "VISIBILITY": "%.1f",
   "DEFAULT_WATER_LEVEL": 100,
