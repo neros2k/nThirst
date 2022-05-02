@@ -3,10 +3,10 @@ import n2k.nthirst.SQLite;
 import n2k.nthirst.base.IInteractor;
 import n2k.nthirst.base.ISaver;
 import org.jetbrains.annotations.NotNull;
-public class Saver implements ISaver {
+public final class Saver implements ISaver {
     private final SQLite SQ_LITE;
     public Saver(@NotNull IInteractor INTERACTOR) {
-        this.SQ_LITE = new SQLite(INTERACTOR.getPlugin(), "thirst.db", "water_level");
+        this.SQ_LITE = new SQLite(INTERACTOR.getPlugin(), INTERACTOR.getConfig().DATAFILE_NAME , INTERACTOR.getConfig().TABLE_NAME);
     }
     @Override
     public void init() {

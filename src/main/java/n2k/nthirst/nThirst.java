@@ -19,8 +19,8 @@ public final class nThirst extends JavaPlugin {
                 this, ConfigModel.class, "config.json");
         JSON_CONFIG_OPT.ifPresent(configModelJSONConfig -> JSON_CONFIG = configModelJSONConfig);
     }
-    public JSONConfig<ConfigModel> getJsonConfig() {
+    public ConfigModel getJsonConfig() {
         assert this.JSON_CONFIG != null;
-        return this.JSON_CONFIG;
+        return this.JSON_CONFIG.getJson();
     }
 }

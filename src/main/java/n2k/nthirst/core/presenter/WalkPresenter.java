@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
-public class WalkPresenter extends APresenter {
+public final class WalkPresenter extends APresenter {
     public WalkPresenter(IInteractor INTERACTOR) {
         super(INTERACTOR);
     }

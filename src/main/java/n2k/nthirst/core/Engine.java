@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-public class Engine implements IEngine {
+public final class Engine implements IEngine {
     private final List<EModifiers> MODIFIER_LIST;
     private final IInteractor INTERACTOR;
     private final Player PLAYER;
@@ -45,19 +45,23 @@ public class Engine implements IEngine {
         final Float[] FINAL_RESULT = {0F};
         this.MODIFIER_LIST.forEach((MODIFIER) -> FINAL_RESULT[0] = MODIFIER.getModifier().getValue(this, null));
         this.PREV_WATER_LEVEL = this.WATER_LEVEL;
-        this.setWaterLevel(this.WATER_LEVEL + FINAL_RESULT[0]);
-        if(!EModifiers.ACTION_BAR.isPermanent().get(this)) {
-            String VISIBILITY = "%.1f";
+        this.addWaterLevel(this.WATER_LEVEL + FINAL_RESULT[0]);
+        if(!EModifiers.ACTION_BAR.isPermanent().get(this) && this.getInteractor().getConfig().ENABLE_AB) {
+            String VISIBILITY = this.getInteractor().getConfig().VISIBILITY;
             if(!Objects.equals(String.format(VISIBILITY, this.WATER_LEVEL),
-                    String.format(VISIBILITY, this.PREV_WATER_LEVEL))) {
+                               String.format(VISIBILITY, this.PREV_WATER_LEVEL))) {
                 this.addActiveModifier(EModifiers.ACTION_BAR);
             }
         }
     }
     @Override
     public void setWaterLevel(Float NEW_LEVEL) {
-        if(NEW_LEVEL > this.WATER_LEVEL) NEW_LEVEL = 110F;
         this.WATER_LEVEL = NEW_LEVEL;
+    }
+    @Override
+    public void addWaterLevel(Float VALUE) {
+        if(VALUE > this.WATER_LEVEL) VALUE = (float) this.getInteractor().getConfig().MAX_WATER_LEVEL;
+        this.setWaterLevel(this.WATER_LEVEL + VALUE);
     }
     @Override
     public void addActiveModifier(EModifiers MODIFIER) {

@@ -3,15 +3,17 @@ import n2k.nthirst.base.APresenter;
 import n2k.nthirst.base.IEngine;
 import n2k.nthirst.base.IInteractor;
 import n2k.nthirst.base.ISaver;
+import n2k.nthirst.base.model.ConfigModel;
 import n2k.nthirst.core.presenter.EventPresenter;
 import n2k.nthirst.core.presenter.WalkPresenter;
+import n2k.nthirst.nThirst;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-public class Interactor implements IInteractor {
+public final class Interactor implements IInteractor {
     private final Map<String, IEngine> ENGINE_MAP;
     private final List<APresenter> PRESENTER_LIST;
     private final ISaver SAVER;
@@ -52,5 +54,9 @@ public class Interactor implements IInteractor {
     @Override
     public JavaPlugin getPlugin() {
         return this.PLUGIN;
+    }
+    @Override
+    public ConfigModel getConfig() {
+        return ((nThirst) this.getPlugin()).getJsonConfig();
     }
 }

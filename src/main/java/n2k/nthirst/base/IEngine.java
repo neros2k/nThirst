@@ -6,6 +6,7 @@ public interface IEngine extends IInitializable {
     void stop();
     void tick();
     void setWaterLevel(Float NEW_LEVEL);
+    void addWaterLevel(Float VALUE);
     void addActiveModifier(EModifiers MODIFIER);
     void removeModifier(EModifiers MODIFIER);
     Float getWaterLevel();

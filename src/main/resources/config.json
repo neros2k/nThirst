@@ -1,5 +1,6 @@
 {
   "ENABLE_AB": true,
+  "AB_MESSAGE": "[ %w ]",
   "DATAFILE_NAME": "thirst.db",
   "TABLE_NAM": "water_level",
   "AB_FORMAT": "%.1f",
