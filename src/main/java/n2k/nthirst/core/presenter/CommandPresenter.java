@@ -5,4 +5,8 @@ public class CommandPresenter extends APresenter {
     public CommandPresenter(IInteractor INTERACTOR) {
         super(INTERACTOR);
     }
+    @Override
+    public void init() {
+
+    }
 }
