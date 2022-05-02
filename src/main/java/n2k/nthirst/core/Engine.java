@@ -43,7 +43,7 @@ public class Engine implements IEngine {
     @Override
     public void tick() {
         final Float[] FINAL_RESULT = {0F};
-        this.MODIFIER_LIST.forEach((MODIFIER) -> FINAL_RESULT[0] = MODIFIER.getModifier().getValue(this));
+        this.MODIFIER_LIST.forEach((MODIFIER) -> FINAL_RESULT[0] = MODIFIER.getModifier().getValue(this, null));
         this.PREV_WATER_LEVEL = this.WATER_LEVEL;
         this.setWaterLevel(this.WATER_LEVEL + FINAL_RESULT[0]);
         if(!EModifiers.ACTION_BAR.isPermanent().get(this)) {
@@ -56,6 +56,7 @@ public class Engine implements IEngine {
     }
     @Override
     public void setWaterLevel(Float NEW_LEVEL) {
+        if(NEW_LEVEL > this.WATER_LEVEL) NEW_LEVEL = 110F;
         this.WATER_LEVEL = NEW_LEVEL;
     }
     @Override

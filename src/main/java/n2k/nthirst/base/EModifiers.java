@@ -2,12 +2,12 @@ package n2k.nthirst.base;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 public enum EModifiers {
-    ACTION_BAR(ENGINE -> {
+    ACTION_BAR((ENGINE, ARGS) -> {
         String TEXT = String.format("%.1f", ENGINE.getWaterLevel());
         ENGINE.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(TEXT));
         return 0F;
-    }, ENGINE -> 20L, ENGINE -> true),
-    WALK(ENGINE -> -0.001F, ENGINE -> 5L);
+    }, ENGINE -> 20L, ENGINE -> false),
+    WALK((ENGINE, ARGS) -> -0.001F, ENGINE -> 5L);
     private final IModifier MODIFIER;
     private final IDuration DURATION;
     private final IPermanent PERMANENT;

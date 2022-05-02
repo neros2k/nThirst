@@ -41,7 +41,9 @@ public class Interactor implements IInteractor {
     }
     @Override
     public void stopEngine(String NAME) {
-        this.ENGINE_MAP.get(NAME).stop();
+        IEngine ENGINE = this.ENGINE_MAP.get(NAME);
+        this.SAVER.save(NAME, ENGINE.getWaterLevel());
+        ENGINE.stop();
     }
     @Override
     public IEngine getEngine(String NAME) {

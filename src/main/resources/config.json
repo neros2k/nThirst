@@ -1,0 +1,19 @@
+{
+  "ENABLE_AB": true,
+  "DATAFILE_NAME": "thirst.db",
+  "TABLE_NAM": "water_level",
+  "AB_FORMAT": "%.1f",
+  "VISIBILITY": "%.1f",
+  "DEFAULT_WATER_LEVEL": 100,
+  "MAX_WATER_LEVEL": 110,
+  "MODIFIERS": {
+    "WALK": {"VALUE": -0.001, "DURATION": 4, "PERMANENT": false},
+    "ACTION_BAR": {"VALUE": 0, "DURATION": 20, "PERMANENT": false},
+    "FOOD": [
+      {"TYPE": "APPLE", "VALUE": 5}
+    ],
+    "BIOMES": [
+      {"TYPE": "DESERT", "VALUE": -0.002}
+    ]
+  }
+}
