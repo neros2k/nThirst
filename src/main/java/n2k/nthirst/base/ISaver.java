@@ -1,5 +1,5 @@
 package n2k.nthirst.base;
 public interface ISaver {
-    void save(Integer VALUE);
-    Integer getByName(String NAME);
+    void save(Float VALUE);
+    Float getByName(String NAME);
 }

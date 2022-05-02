@@ -2,11 +2,11 @@ package n2k.nthirst.core;
 import n2k.nthirst.base.ISaver;
 public class Saver implements ISaver {
     @Override
-    public void save(Integer VALUE) {
+    public void save(Float VALUE) {
 
     }
     @Override
-    public Integer getByName(String NAME) {
+    public Float getByName(String NAME) {
         return null;
     }
 }
