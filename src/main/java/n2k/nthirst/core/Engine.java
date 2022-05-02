@@ -4,7 +4,9 @@ import n2k.nthirst.base.IEngine;
 import n2k.nthirst.base.IInteractor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 public class Engine implements IEngine {
@@ -23,7 +25,9 @@ public class Engine implements IEngine {
     }
     @Override
     public void init() {
-
+        Arrays.stream(EModifiers.values()).forEach((MODIFIER) -> {
+            if(MODIFIER.isPermanent().get(this)) this.addActiveModifier(MODIFIER);
+        });
     }
     @Override
     public void start() {
@@ -42,10 +46,12 @@ public class Engine implements IEngine {
         this.MODIFIER_LIST.forEach((MODIFIER) -> FINAL_RESULT[0] = MODIFIER.getModifier().getValue(this));
         this.PREV_WATER_LEVEL = this.WATER_LEVEL;
         this.setWaterLevel(this.WATER_LEVEL + FINAL_RESULT[0]);
-        String VISIBILITY = "%.1f";
-        if(!Objects.equals(String.format(VISIBILITY, this.WATER_LEVEL),
-                           String.format(VISIBILITY, this.PREV_WATER_LEVEL))) {
-            this.addActiveModifier(EModifiers.SHOW_ACTION_BAR);
+        if(!EModifiers.ACTION_BAR.isPermanent().get(this)) {
+            String VISIBILITY = "%.1f";
+            if(!Objects.equals(String.format(VISIBILITY, this.WATER_LEVEL),
+                    String.format(VISIBILITY, this.PREV_WATER_LEVEL))) {
+                this.addActiveModifier(EModifiers.ACTION_BAR);
+            }
         }
     }
     @Override
@@ -64,8 +70,10 @@ public class Engine implements IEngine {
         }
     }
     @Override
-    public void removeModifier(EModifiers MODIFIER) {
-        this.MODIFIER_LIST.remove(MODIFIER);
+    public void removeModifier(@NotNull EModifiers MODIFIER) {
+        if(!MODIFIER.isPermanent().get(this)) {
+            this.MODIFIER_LIST.remove(MODIFIER);
+        }
     }
     @Override
     public Float getWaterLevel() {

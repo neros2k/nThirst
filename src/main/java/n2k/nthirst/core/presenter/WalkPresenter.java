@@ -18,11 +18,11 @@ public class WalkPresenter extends APresenter {
     }
     @EventHandler
     public void onPlayerMove(@NotNull PlayerMoveEvent EVENT) {
+        IEngine ENGINE = this.getInteractor().getEngine(EVENT.getPlayer().getName());
         if(EVENT.isCancelled()) return;
-        this.reload(EVENT.getPlayer().getName());
+        this.reload(ENGINE);
     }
-    private void reload(String NAME) {
-        IEngine ENGINE = this.getInteractor().getEngine(NAME);
+    private void reload(IEngine ENGINE) {
         if(!ENGINE.getModifierList().contains(EModifiers.WALK)) {
             ENGINE.addActiveModifier(EModifiers.WALK);
         } else {
