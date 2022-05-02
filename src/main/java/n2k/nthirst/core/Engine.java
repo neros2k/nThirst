@@ -11,6 +11,7 @@ public class Engine implements IEngine {
     private final Player PLAYER;
     private Integer TASK_ID;
     private List<EModifiers> MODIFIER_LIST;
+    private Float PREV_WATER_LEVEL;
     private Float WATER_LEVEL;
     public Engine(IInteractor INTERACTOR, Player PLAYER) {
         this.INTERACTOR = INTERACTOR;
@@ -19,6 +20,8 @@ public class Engine implements IEngine {
     @Override
     public void init() {
         this.MODIFIER_LIST = new ArrayList<>();
+        this.PREV_WATER_LEVEL = 0F;
+        this.WATER_LEVEL = 0F;
     }
     @Override
     public void start() {
@@ -35,7 +38,11 @@ public class Engine implements IEngine {
     public void tick() {
         final Float[] FINAL_RESULT = {0F};
         this.MODIFIER_LIST.forEach((MODIFIER) -> FINAL_RESULT[0] = MODIFIER.getModifier().getValue(this));
+        this.PREV_WATER_LEVEL = this.WATER_LEVEL;
         this.setWaterLevel(this.getWaterLevel() + FINAL_RESULT[0]);
+        if(Math.pow(this.WATER_LEVEL, 2) != Math.pow(this.PREV_WATER_LEVEL, 2)) {
+            this.addActiveModifier(EModifiers.SHOW_ACTION_BAR);
+        }
     }
     @Override
     public void setWaterLevel(Float NEW_LEVEL) {
@@ -44,11 +51,11 @@ public class Engine implements IEngine {
     @Override
     public void addActiveModifier(EModifiers MODIFIER) {
         this.MODIFIER_LIST.add(MODIFIER);
-        if(MODIFIER.getDuration() != 0) {
+        if(MODIFIER.getDuration() != null) {
             Bukkit.getScheduler().runTaskLaterAsynchronously(
                     this.getInteractor().getPlugin(),
                     () -> this.removeModifier(MODIFIER),
-                    MODIFIER.getDuration()
+                    MODIFIER.getDuration().get(this)
             );
         }
     }

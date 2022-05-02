@@ -30,7 +30,8 @@ public class Interactor implements IInteractor {
     @Override
     public void startEngine(Player PLAYER) {
         IEngine ENGINE = new Engine(this, PLAYER);
-        ENGINE.setWaterLevel(100F);
+        ENGINE.init();
+        ENGINE.setWaterLevel(this.SAVER.getByName(PLAYER.getName()));
         this.ENGINE_MAP.put(PLAYER.getName(), ENGINE);
         ENGINE.start();
     }
