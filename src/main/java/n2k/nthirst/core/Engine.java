@@ -23,7 +23,10 @@ public class Engine implements IEngine {
     }
     @Override
     public void start() {
-        this.TASK_ID = Bukkit.getScheduler().runTaskTimerAsynchronously(this.getInteractor().getPlugin(), this::tick, 0L,5L).getTaskId();
+        this.TASK_ID = Bukkit.getScheduler().runTaskTimerAsynchronously(
+                this.getInteractor().getPlugin(),
+                this::tick, 0L,5L
+        ).getTaskId();
     }
     @Override
     public void stop() {
@@ -32,9 +35,7 @@ public class Engine implements IEngine {
     @Override
     public void tick() {
         final Float[] FINAL_RESULT = {0F};
-        this.MODIFIER_LIST.forEach((MODIFIER) -> {
-            FINAL_RESULT[0] = MODIFIER.getModifier().getValue(this);
-        });
+        this.MODIFIER_LIST.forEach((MODIFIER) -> FINAL_RESULT[0] = MODIFIER.getModifier().getValue(this));
         this.setWaterLevel(this.getWaterLevel() + FINAL_RESULT[0]);
     }
     @Override
@@ -44,6 +45,13 @@ public class Engine implements IEngine {
     @Override
     public void addActiveModifier(EModifiers MODIFIER) {
         this.MODIFIER_LIST.add(MODIFIER);
+        if(MODIFIER.getDuration() != 0) {
+            Bukkit.getScheduler().runTaskLaterAsynchronously(
+                    this.getInteractor().getPlugin(),
+                    () -> this.removeModifier(MODIFIER),
+                    MODIFIER.getDuration()
+            );
+        }
     }
     @Override
     public void removeModifier(EModifiers MODIFIER) {
