@@ -1,5 +1,5 @@
 package n2k.nthirst.base.modifier;
-import n2k.nthirst.ActionBar;
+import n2k.nthirst.utils.ActionBar;
 import n2k.nthirst.base.IEngine;
 import n2k.nthirst.base.model.ConfigModel;
 import n2k.nthirst.base.model.ModifiersModel;
@@ -28,17 +28,21 @@ public enum EModifierType {
                 ARG_ENGINE -> EModifierType.getBiomeConfig(ENGINE).DURATION,
                 ARG_ENGINE -> false
         );
-        if(ENGINE.getModifierList().contains(MODIFIER)) {
+        if(!ENGINE.containsModifier(MODIFIER)) {
             ENGINE.addModifier(MODIFIER);
         }
         return 0F;
     },
           ENGINE -> 0L,
           ENGINE -> true),
-    FOOD(ENGINE -> 0F, ENGINE -> 0L, ENGINE -> false);
+    FOOD(),
+    SET();
     private final Modifier DEFAULT_MODIFIER;
     EModifierType(IValue VALUE, IDuration DURATION, IPermanent PERMANENT) {
         this.DEFAULT_MODIFIER = new Modifier(this, VALUE, DURATION, PERMANENT);
+    }
+    EModifierType() {
+        this(ENGINE -> 0F, ENGINE -> 0L, ENGINE -> false);
     }
     public Modifier getDefaultModifier() {
         return this.DEFAULT_MODIFIER;

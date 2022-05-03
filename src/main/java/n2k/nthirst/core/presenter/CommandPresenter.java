@@ -2,6 +2,8 @@ package n2k.nthirst.core.presenter;
 import n2k.nthirst.base.APresenter;
 import n2k.nthirst.base.IInteractor;
 import n2k.nthirst.base.model.ConfigModel;
+import n2k.nthirst.base.modifier.EModifierType;
+import n2k.nthirst.base.modifier.Modifier;
 import n2k.nthirst.nThirst;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -45,7 +47,14 @@ public final class CommandPresenter extends APresenter implements CommandExecuto
                 Player PLAYER = this.getPlayerByName(ARGS[1]);
                 float VALUE = Float.parseFloat(ARGS[2]);
                 if(PLAYER != null && !Float.isNaN(VALUE)) {
-                    this.getInteractor().getEngine(PLAYER.getName()).setWaterLevel(VALUE);
+                    this.getInteractor().getEngine(PLAYER.getName()).addModifier(
+                            new Modifier(
+                                    EModifierType.SET,
+                                    ENGINE -> VALUE/20,
+                                    ENGINE -> 20L,
+                                    ENGINE -> false
+                            )
+                    );
                     SENDER.sendMessage(MODEL.MESSAGES.SET_CMD.replace("{value}", Float.toString(VALUE))
                                                              .replace("{player}", PLAYER.getName()));
                     return true;

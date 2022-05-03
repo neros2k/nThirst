@@ -8,11 +8,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 public final class Engine implements IEngine {
     private final List<Modifier> MODIFIER_LIST;
     private final IInteractor INTERACTOR;
@@ -74,7 +76,8 @@ public final class Engine implements IEngine {
     @Override
     public void addWaterLevel(Float VALUE) {
         float RESULT = this.WATER_LEVEL + VALUE;
-        if(RESULT > (float) this.getInteractor().getConfig().MAX_WATER_LEVEL) return;
+        float MAX_LEVEL = (float) this.getInteractor().getConfig().MAX_WATER_LEVEL;
+        if(RESULT > MAX_LEVEL && !this.containsModifier(EModifierType.SET)) RESULT = MAX_LEVEL;
         this.setWaterLevel(RESULT);
     }
     @Override
@@ -98,6 +101,18 @@ public final class Engine implements IEngine {
     @Override
     public void removeModifier(@NotNull EModifierType TYPE) {
         this.removeModifier(TYPE.getDefaultModifier());
+    }
+    @Contract(pure = true) @NotNull @Override
+    public Boolean containsModifier(Modifier MODIFIER) {
+        return this.MODIFIER_LIST.contains(MODIFIER);
+    }
+    @Contract(pure = true) @Override
+    public Boolean containsModifier(EModifierType MODIFIER) {
+        AtomicReference<Boolean> RETURN = new AtomicReference<>(false);
+        this.MODIFIER_LIST.forEach(LIST_MODIFIER -> {
+            if(LIST_MODIFIER.getType() == MODIFIER) RETURN.set(true);
+        });
+        return RETURN.get();
     }
     @Override
     public Float getWaterLevel() {

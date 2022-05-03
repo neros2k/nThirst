@@ -1,5 +1,6 @@
-package n2k.nthirst;
+package n2k.nthirst.utils;
 import n2k.nthirst.base.ISQLite;
+import n2k.nthirst.nThirst;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

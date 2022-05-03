@@ -1,5 +1,5 @@
 package n2k.nthirst.core;
-import n2k.nthirst.SQLite;
+import n2k.nthirst.utils.SQLite;
 import n2k.nthirst.base.IInteractor;
 import n2k.nthirst.base.ISaver;
 import org.jetbrains.annotations.NotNull;

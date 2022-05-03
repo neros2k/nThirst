@@ -13,6 +13,8 @@ public interface IEngine extends IInitializable {
     void addModifier(EModifierType MODIFIER);
     void removeModifier(Modifier EMODIFIER);
     void removeModifier(EModifierType MODIFIER);
+    Boolean containsModifier(Modifier MODIFIER);
+    Boolean containsModifier(EModifierType MODIFIER);
     Float getWaterLevel();
     List<Modifier> getModifierList();
     IInteractor getInteractor();

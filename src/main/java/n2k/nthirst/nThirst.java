@@ -2,6 +2,7 @@ package n2k.nthirst;
 import n2k.nthirst.base.IInteractor;
 import n2k.nthirst.base.model.ConfigModel;
 import n2k.nthirst.core.Interactor;
+import n2k.nthirst.utils.PAPIExpansion;
 import neros2k.jcapi.JCApi;
 import neros2k.jcapi.JSONConfig;
 import org.bukkit.Bukkit;

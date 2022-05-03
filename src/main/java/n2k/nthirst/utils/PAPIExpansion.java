@@ -1,4 +1,4 @@
-package n2k.nthirst;
+package n2k.nthirst.utils;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import n2k.nthirst.base.IInteractor;
 import org.bukkit.entity.Player;

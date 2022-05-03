@@ -63,7 +63,7 @@ public final class EventPresenter extends APresenter {
         this.moveReload(ENGINE);
     }
     private void moveReload(@NotNull IEngine ENGINE) {
-        if(!ENGINE.getModifierList().contains(EModifierType.WALK.getDefaultModifier())) {
+        if(!ENGINE.containsModifier(EModifierType.WALK)) {
             ENGINE.addModifier(EModifierType.WALK);
         }
     }
