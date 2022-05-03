@@ -1,47 +1,46 @@
 package n2k.nthirst.base;
-import n2k.nthirst.base.model.ConfigModel;
-import n2k.nthirst.ActionBar;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
+import n2k.nthirst.base.model.ModifierModel;
+import n2k.nthirst.base.model.TypeModel;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 public enum EModifiers {
     BIOMES((ENGINE, ARGS) -> {
-        ConfigModel MODEL = ENGINE.getInteractor().getConfig();
-        AtomicReference<Float> RESULT = new AtomicReference<>(0F);
-        String BIOME = ENGINE.getPlayer().getLocation().getBlock().getBiome().toString();
-        Arrays.stream(MODEL.MODIFIERS.BIOMES).forEach(
-                (BIOMES) -> {
-                    if(BIOMES.TYPE.equals(BIOME)) RESULT.set(BIOMES.VALUE);
-                }
-        );
-        return RESULT.get();
-    }, null, ENGINE -> true),
+        TypeModel[] MODEL = ENGINE.getInteractor().getConfig().MODIFIERS.BIOMES;
+        AtomicReference<TypeModel> COINCIDENTAL_TYPE = new AtomicReference<>(null);
+        Arrays.stream(MODEL).forEach(BIOME -> {
+            if(BIOME.TYPE.equals(ARGS[0])) COINCIDENTAL_TYPE.set(BIOME);
+        });
+        if(COINCIDENTAL_TYPE.get() != null) {
+            return new ModifierData(COINCIDENTAL_TYPE.get().VALUE, COINCIDENTAL_TYPE.get().DURATION, false);
+        } else {
+            return new ModifierData(0F, 0L, false);
+        }
+    }),
+    FOOD((ENGINE, ARGS) -> {
+        TypeModel[] MODEL = ENGINE.getInteractor().getConfig().MODIFIERS.FOOD;
+        AtomicReference<TypeModel> COINCIDENTAL_TYPE = new AtomicReference<>(null);
+        Arrays.stream(MODEL).forEach(FOOD -> {
+            if(FOOD.TYPE.equals(ARGS[0])) COINCIDENTAL_TYPE.set(FOOD);
+        });
+        if(COINCIDENTAL_TYPE.get() != null) {
+            return new ModifierData(COINCIDENTAL_TYPE.get().VALUE, COINCIDENTAL_TYPE.get().DURATION, false);
+        } else {
+            return new ModifierData(0F, 0L, false);
+        }
+    }),
+    WALK((ENGINE, ARGS) -> {
+        ModifierModel MODEL = ENGINE.getInteractor().getConfig().MODIFIERS.WALK;
+        return new ModifierData(MODEL.VALUE, MODEL.DURATION, MODEL.PERMANENT);
+    }),
     ACTION_BAR((ENGINE, ARGS) -> {
-        ConfigModel MODEL = ENGINE.getInteractor().getConfig();
-        String FORMAT = String.format(MODEL.AB_FORMAT, ENGINE.getWaterLevel());
-        ENGINE.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ActionBar.get(FORMAT, ENGINE)));
-        return MODEL.MODIFIERS.ACTION_BAR.VALUE;
-    }, ENGINE -> ENGINE.getInteractor().getConfig().MODIFIERS.ACTION_BAR.DURATION,
-       ENGINE -> ENGINE.getInteractor().getConfig().MODIFIERS.ACTION_BAR.PERMANENT),
-    WALK((ENGINE, ARGS) -> ENGINE.getInteractor().getConfig().MODIFIERS.WALK.VALUE,
-          ENGINE -> ENGINE.getInteractor().getConfig().MODIFIERS.WALK.DURATION,
-          ENGINE -> ENGINE.getInteractor().getConfig().MODIFIERS.WALK.PERMANENT);
+        ModifierModel MODEL = ENGINE.getInteractor().getConfig().MODIFIERS.ACTION_BAR;
+        return new ModifierData(MODEL.VALUE, MODEL.DURATION, MODEL.PERMANENT);
+    });
     private final IModifier MODIFIER;
-    private final IDuration DURATION;
-    private final IPermanent PERMANENT;
-    EModifiers(IModifier MODIFIER, IDuration DURATION, IPermanent PERMANENT) {
+    EModifiers(IModifier MODIFIER) {
         this.MODIFIER = MODIFIER;
-        this.DURATION = DURATION;
-        this.PERMANENT = PERMANENT;
     }
     public IModifier getModifier() {
         return this.MODIFIER;
-    }
-    public IDuration getDuration() {
-        return this.DURATION;
-    }
-    public IPermanent isPermanent() {
-        return this.PERMANENT;
     }
 }

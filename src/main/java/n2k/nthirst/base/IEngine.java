@@ -7,10 +7,11 @@ public interface IEngine extends IInitializable {
     void tick();
     void setWaterLevel(Float NEW_LEVEL);
     void addWaterLevel(Float VALUE);
-    void addActiveModifier(EModifiers MODIFIER);
-    void removeModifier(EModifiers MODIFIER);
+    void addActiveModifier(EModifiers EMODIFIER);
+    void addActiveModifier(ModifierData MODIFIER);
+    void removeModifier(ModifierData MODIFIER);
     Float getWaterLevel();
-    List<EModifiers> getModifierList();
+    List<ModifierData> getModifierList();
     IInteractor getInteractor();
     Player getPlayer();
     Boolean isDisabledGamemode();

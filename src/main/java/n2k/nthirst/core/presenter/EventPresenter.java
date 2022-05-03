@@ -38,8 +38,9 @@ public final class EventPresenter extends APresenter {
         Arrays.stream(this.getInteractor().getConfig().MODIFIERS.FOOD).forEach(
                 FOOD -> {
                     if(FOOD.TYPE.equals(ITEM)) {
-                        ENGINE.addWaterLevel(FOOD.VALUE);
-                        ENGINE.addActiveModifier(EModifiers.ACTION_BAR);
+                        ENGINE.addActiveModifier(
+                                EModifiers.FOOD.getModifier().getData(ENGINE, new String[]{ITEM})
+                        );
                     }
                 }
         );
@@ -56,12 +57,17 @@ public final class EventPresenter extends APresenter {
         IEngine ENGINE = this.getInteractor().getEngine(EVENT.getPlayer().getName());
         if(EVENT.isCancelled() || ENGINE.isDisabledGamemode()) return;
         this.moveReload(ENGINE);
+        this.biomeReload(ENGINE, EVENT.getPlayer().getLocation().getBlock().getBiome().name());
     }
     private void moveReload(@NotNull IEngine ENGINE) {
-        if(!ENGINE.getModifierList().contains(EModifiers.WALK)) {
+        if(!ENGINE.getModifierList().contains(EModifiers.WALK.getModifier().getData(ENGINE, null))) {
             ENGINE.addActiveModifier(EModifiers.WALK);
-        } else {
-            ENGINE.removeModifier(EModifiers.WALK);
+        }
+    }
+    private void biomeReload(@NotNull IEngine ENGINE, String BIOME) {
+        String[] ARGS = new String[]{BIOME};
+        if(!ENGINE.getModifierList().contains(EModifiers.BIOMES.getModifier().getData(ENGINE, ARGS))) {
+            ENGINE.addActiveModifier(EModifiers.BIOMES.getModifier().getData(ENGINE, ARGS));
         }
     }
 }

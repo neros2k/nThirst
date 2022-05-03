@@ -2,6 +2,7 @@ package n2k.nthirst.core;
 import n2k.nthirst.base.EModifiers;
 import n2k.nthirst.base.IEngine;
 import n2k.nthirst.base.IInteractor;
+import n2k.nthirst.base.ModifierData;
 import n2k.nthirst.base.model.ConfigModel;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -13,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 public final class Engine implements IEngine {
-    private final List<EModifiers> MODIFIER_LIST;
+    private final List<ModifierData> MODIFIER_LIST;
     private final IInteractor INTERACTOR;
     private final Player PLAYER;
     private Integer TASK_ID;
@@ -29,7 +30,8 @@ public final class Engine implements IEngine {
     @Override
     public void init() {
         Arrays.stream(EModifiers.values()).forEach((MODIFIER) -> {
-            if(MODIFIER.isPermanent().get(this)) this.addActiveModifier(MODIFIER);
+            ModifierData DATA = MODIFIER.getModifier().getData(this, null);
+            if(DATA.isPermanent()) this.addActiveModifier(DATA);
         });
     }
     @Override
@@ -48,10 +50,10 @@ public final class Engine implements IEngine {
         if(this.isDisabledGamemode()) return;
         ConfigModel MODEL = this.getInteractor().getConfig();
         final Float[] FINAL_RESULT = {0F};
-        this.MODIFIER_LIST.forEach((MODIFIER) -> FINAL_RESULT[0] = MODIFIER.getModifier().getValue(this, null));
+        this.MODIFIER_LIST.forEach((MODIFIER) -> FINAL_RESULT[0] = MODIFIER.getValue());
         this.PREV_WATER_LEVEL = this.WATER_LEVEL;
         this.addWaterLevel(FINAL_RESULT[0]);
-        if(!EModifiers.ACTION_BAR.isPermanent().get(this) && MODEL.ENABLE_AB) {
+        if(!EModifiers.ACTION_BAR.getModifier().getData(this, null).isPermanent() && MODEL.ENABLE_AB) {
             String VISIBILITY = MODEL.VISIBILITY;
             if(!Objects.equals(String.format(VISIBILITY, this.WATER_LEVEL),
                                String.format(VISIBILITY, this.PREV_WATER_LEVEL))) {
@@ -77,19 +79,23 @@ public final class Engine implements IEngine {
         this.setWaterLevel(RESULT);
     }
     @Override
-    public void addActiveModifier(EModifiers MODIFIER) {
+    public void addActiveModifier(@NotNull EModifiers EMODIFIER) {
+        this.addActiveModifier(EMODIFIER.getModifier().getData(this, null));
+    }
+    @Override
+    public void addActiveModifier(ModifierData MODIFIER) {
         this.MODIFIER_LIST.add(MODIFIER);
-        if(MODIFIER.getDuration() != null) {
+        if(MODIFIER.getDuration() != 0) {
             Bukkit.getScheduler().runTaskLater(
                     this.getInteractor().getPlugin(),
                     () -> this.removeModifier(MODIFIER),
-                    MODIFIER.getDuration().get(this)
+                    MODIFIER.getDuration()
             );
         }
     }
     @Override
-    public void removeModifier(@NotNull EModifiers MODIFIER) {
-        if(!MODIFIER.isPermanent().get(this)) {
+    public void removeModifier(@NotNull ModifierData MODIFIER) {
+        if(!MODIFIER.isPermanent()) {
             this.MODIFIER_LIST.remove(MODIFIER);
         }
     }
@@ -98,7 +104,7 @@ public final class Engine implements IEngine {
         return this.WATER_LEVEL;
     }
     @Override
-    public List<EModifiers> getModifierList() {
+    public List<ModifierData> getModifierList() {
         return this.MODIFIER_LIST;
     }
     @Override
