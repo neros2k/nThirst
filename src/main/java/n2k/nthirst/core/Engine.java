@@ -100,17 +100,19 @@ public final class Engine implements IEngine {
     }
     @Override
     public void removeModifier(@NotNull EModifierType TYPE) {
-        this.removeModifier(TYPE.getDefaultModifier());
+        this.MODIFIER_LIST.forEach(LIST_MODIFIER -> {
+            if(LIST_MODIFIER.getType() == TYPE) this.removeModifier(LIST_MODIFIER);
+        });
     }
     @Contract(pure = true) @NotNull @Override
     public Boolean containsModifier(Modifier MODIFIER) {
         return this.MODIFIER_LIST.contains(MODIFIER);
     }
     @Contract(pure = true) @Override
-    public Boolean containsModifier(EModifierType MODIFIER) {
+    public Boolean containsModifier(EModifierType TYPE) {
         AtomicReference<Boolean> RETURN = new AtomicReference<>(false);
         this.MODIFIER_LIST.forEach(LIST_MODIFIER -> {
-            if(LIST_MODIFIER.getType() == MODIFIER) RETURN.set(true);
+            if(LIST_MODIFIER.getType() == TYPE) RETURN.set(true);
         });
         return RETURN.get();
     }
