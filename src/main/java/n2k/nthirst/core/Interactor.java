@@ -4,6 +4,7 @@ import n2k.nthirst.base.IEngine;
 import n2k.nthirst.base.IInteractor;
 import n2k.nthirst.base.ISaver;
 import n2k.nthirst.base.model.ConfigModel;
+import n2k.nthirst.core.presenter.CommandPresenter;
 import n2k.nthirst.core.presenter.EventPresenter;
 import n2k.nthirst.nThirst;
 import org.bukkit.entity.Player;
@@ -27,7 +28,8 @@ public final class Interactor implements IInteractor {
     @Override
     public void init() {
         this.PRESENTER_LIST.addAll(List.of(
-                        new EventPresenter(this)
+                        new EventPresenter(this),
+                        new CommandPresenter(this)
         ));
         this.PRESENTER_LIST.forEach(APresenter::init);
         this.SAVER.init();
@@ -60,6 +62,6 @@ public final class Interactor implements IInteractor {
     }
     @Override
     public ConfigModel getConfig() {
-        return ((nThirst) this.getPlugin()).getJsonConfig();
+        return ((nThirst) this.getPlugin()).getJsonConfig().getJson();
     }
 }

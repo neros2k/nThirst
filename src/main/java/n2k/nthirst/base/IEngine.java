@@ -13,4 +13,5 @@ public interface IEngine extends IInitializable {
     List<EModifiers> getModifierList();
     IInteractor getInteractor();
     Player getPlayer();
+    Boolean isDisabledGamemode();
 }

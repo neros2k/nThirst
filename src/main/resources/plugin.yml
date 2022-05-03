@@ -3,6 +3,18 @@ version: '${project.version}'
 main: n2k.nthirst.nThirst
 api-version: 1.17
 authors: [ n2k ]
+website: github.com/neros2k
+commands:
+  nthirst:
+    description: The main command.
+permissions:
+  nthirst.admin:
+    default: op
+  nthirst.command.*:
+    children:
+      nthirst.command.reload: true
+      nthirst.command.set: true
+      nthirst.command.get: true
 softdepend:
   - JSONConfigAPI
   - PlaceholderAPI

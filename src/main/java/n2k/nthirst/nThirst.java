@@ -19,9 +19,6 @@ public final class nThirst extends JavaPlugin {
         List.of("nThirst v1.0 by n2k",
                 "GitHub: https://github.com/neros2k",
                 "Discord: n2k#9665").forEach(this.getLogger()::info);
-        if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-            this.getLogger().info("Hooked into PlaceholderAPI");
-        }
         if(Bukkit.getPluginManager().isPluginEnabled("JSONConfigAPI")) {
             Optional<JSONConfig<ConfigModel>> JSON_CONFIG_OPT = JCApi.getNew(
                     this, ConfigModel.class, "config.json");
@@ -31,9 +28,13 @@ public final class nThirst extends JavaPlugin {
             } else return;
             this.INTERACTOR.init();
         }
+        if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            this.getLogger().info("Hooked into PlaceholderAPI");
+            new PAPIExpansion(this.INTERACTOR).register();
+        }
     }
-    public ConfigModel getJsonConfig() {
+    public JSONConfig<ConfigModel> getJsonConfig() {
         assert this.JSON_CONFIG != null;
-        return this.JSON_CONFIG.getJson();
+        return this.JSON_CONFIG;
     }
 }

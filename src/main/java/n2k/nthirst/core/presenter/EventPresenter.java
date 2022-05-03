@@ -3,7 +3,9 @@ import n2k.nthirst.base.APresenter;
 import n2k.nthirst.base.EModifiers;
 import n2k.nthirst.base.IEngine;
 import n2k.nthirst.base.IInteractor;
+import n2k.nthirst.base.model.ConfigModel;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -30,19 +32,29 @@ public final class EventPresenter extends APresenter {
     }
     @EventHandler
     public void onPlayerEating(@NotNull PlayerItemConsumeEvent EVENT) {
-        if(EVENT.isCancelled()) return;
         IEngine ENGINE = this.getInteractor().getEngine(EVENT.getPlayer().getName());
+        if(EVENT.isCancelled() || ENGINE.isDisabledGamemode()) return;
         String ITEM = EVENT.getItem().getType().toString();
         Arrays.stream(this.getInteractor().getConfig().MODIFIERS.FOOD).forEach(
                 FOOD -> {
-                    if(FOOD.TYPE.equals(ITEM)) ENGINE.addWaterLevel(FOOD.VALUE);
+                    if(FOOD.TYPE.equals(ITEM)) {
+                        ENGINE.addWaterLevel(FOOD.VALUE);
+                        ENGINE.addActiveModifier(EModifiers.ACTION_BAR);
+                    }
                 }
         );
     }
     @EventHandler
+    public void onPlayerDeath(@NotNull PlayerDeathEvent EVENT) {
+        IEngine ENGINE = this.getInteractor().getEngine(EVENT.getEntity().getName());
+        ConfigModel MODEL = this.getInteractor().getConfig();
+        if(ENGINE.isDisabledGamemode() || !MODEL.RESET_ON_DEATH) return;
+        ENGINE.setWaterLevel((float) MODEL.DEFAULT_WATER_LEVEL);
+    }
+    @EventHandler
     public void onPlayerMove(@NotNull PlayerMoveEvent EVENT) {
         IEngine ENGINE = this.getInteractor().getEngine(EVENT.getPlayer().getName());
-        if(EVENT.isCancelled()) return;
+        if(EVENT.isCancelled() || ENGINE.isDisabledGamemode()) return;
         this.moveReload(ENGINE);
     }
     private void moveReload(@NotNull IEngine ENGINE) {

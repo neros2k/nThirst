@@ -6,8 +6,8 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 public class ActionBar {
     @Contract(pure = true) @NotNull
-    public static String get(@NotNull String STR, @NotNull IEngine ENGINE) {
-        STR = STR.replace("{level}", STR);
+    public static String get(@NotNull String FORMAT, @NotNull IEngine ENGINE) {
+        String STR = ENGINE.getInteractor().getConfig().AB_MESSAGE.replace("{level}", FORMAT);
         if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             STR = PlaceholderAPI.setPlaceholders(ENGINE.getPlayer(), STR);
         }

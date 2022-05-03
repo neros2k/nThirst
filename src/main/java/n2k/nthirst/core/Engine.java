@@ -2,8 +2,11 @@ package n2k.nthirst.core;
 import n2k.nthirst.base.EModifiers;
 import n2k.nthirst.base.IEngine;
 import n2k.nthirst.base.IInteractor;
+import n2k.nthirst.base.model.ConfigModel;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,20 +45,29 @@ public final class Engine implements IEngine {
     }
     @Override
     public void tick() {
+        if(this.isDisabledGamemode()) return;
+        ConfigModel MODEL = this.getInteractor().getConfig();
         final Float[] FINAL_RESULT = {0F};
         this.MODIFIER_LIST.forEach((MODIFIER) -> FINAL_RESULT[0] = MODIFIER.getModifier().getValue(this, null));
+        this.PREV_WATER_LEVEL = this.WATER_LEVEL;
         this.addWaterLevel(FINAL_RESULT[0]);
-        if(!EModifiers.ACTION_BAR.isPermanent().get(this) && this.getInteractor().getConfig().ENABLE_AB) {
-            String VISIBILITY = this.getInteractor().getConfig().VISIBILITY;
+        if(!EModifiers.ACTION_BAR.isPermanent().get(this) && MODEL.ENABLE_AB) {
+            String VISIBILITY = MODEL.VISIBILITY;
             if(!Objects.equals(String.format(VISIBILITY, this.WATER_LEVEL),
                                String.format(VISIBILITY, this.PREV_WATER_LEVEL))) {
                 this.addActiveModifier(EModifiers.ACTION_BAR);
             }
         }
+        if(this.WATER_LEVEL <= MODEL.CRITICAL_WATER_LEVEL) {
+            Arrays.stream(MODEL.CRITICAL_LEVEL_EFFECTS).forEach(EFFECT ->
+                    this.PLAYER.addPotionEffect(new PotionEffect(
+                    Objects.requireNonNull(PotionEffectType.getByName(EFFECT.TYPE)),
+                            2, EFFECT.AMPLIFIER))
+            );
+        }
     }
     @Override
     public void setWaterLevel(Float NEW_LEVEL) {
-        this.PREV_WATER_LEVEL = this.WATER_LEVEL;
         this.WATER_LEVEL = NEW_LEVEL;
     }
     @Override
@@ -95,5 +107,9 @@ public final class Engine implements IEngine {
     @Override
     public Player getPlayer() {
         return this.PLAYER;
+    }
+    @NotNull
+    public Boolean isDisabledGamemode() {
+        return List.of(this.INTERACTOR.getConfig().DISABLED_GAME_MODES).contains(this.PLAYER.getGameMode().name());
     }
 }
