@@ -1,9 +1,10 @@
 package n2k.nthirst.core.presenter;
 import n2k.nthirst.base.APresenter;
-import n2k.nthirst.base.EModifiers;
 import n2k.nthirst.base.IEngine;
 import n2k.nthirst.base.IInteractor;
 import n2k.nthirst.base.model.ConfigModel;
+import n2k.nthirst.base.modifier.EModifierType;
+import n2k.nthirst.base.modifier.Modifier;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
@@ -38,9 +39,12 @@ public final class EventPresenter extends APresenter {
         Arrays.stream(this.getInteractor().getConfig().MODIFIERS.FOOD).forEach(
                 FOOD -> {
                     if(FOOD.TYPE.equals(ITEM)) {
-                        ENGINE.addActiveModifier(
-                                EModifiers.FOOD.getModifier().getData(ENGINE, new String[]{ITEM})
-                        );
+                        ENGINE.addModifier(new Modifier(
+                                EModifierType.FOOD,
+                                ARG_ENGINE -> FOOD.VALUE,
+                                ARG_ENGINE -> FOOD.DURATION,
+                                ARG_ENGINE -> false
+                        ));
                     }
                 }
         );
@@ -57,17 +61,10 @@ public final class EventPresenter extends APresenter {
         IEngine ENGINE = this.getInteractor().getEngine(EVENT.getPlayer().getName());
         if(EVENT.isCancelled() || ENGINE.isDisabledGamemode()) return;
         this.moveReload(ENGINE);
-        this.biomeReload(ENGINE, EVENT.getPlayer().getLocation().getBlock().getBiome().name());
     }
     private void moveReload(@NotNull IEngine ENGINE) {
-        if(!ENGINE.getModifierList().contains(EModifiers.WALK.getModifier().getData(ENGINE, null))) {
-            ENGINE.addActiveModifier(EModifiers.WALK);
-        }
-    }
-    private void biomeReload(@NotNull IEngine ENGINE, String BIOME) {
-        String[] ARGS = new String[]{BIOME};
-        if(!ENGINE.getModifierList().contains(EModifiers.BIOMES.getModifier().getData(ENGINE, ARGS))) {
-            ENGINE.addActiveModifier(EModifiers.BIOMES.getModifier().getData(ENGINE, ARGS));
+        if(!ENGINE.getModifierList().contains(EModifierType.WALK.getDefaultModifier())) {
+            ENGINE.addModifier(EModifierType.WALK);
         }
     }
 }

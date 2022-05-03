@@ -1,9 +1,9 @@
 package n2k.nthirst.core;
-import n2k.nthirst.base.EModifiers;
+import n2k.nthirst.base.modifier.EModifierType;
 import n2k.nthirst.base.IEngine;
 import n2k.nthirst.base.IInteractor;
-import n2k.nthirst.base.ModifierData;
 import n2k.nthirst.base.model.ConfigModel;
+import n2k.nthirst.base.modifier.Modifier;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 public final class Engine implements IEngine {
-    private final List<ModifierData> MODIFIER_LIST;
+    private final List<Modifier> MODIFIER_LIST;
     private final IInteractor INTERACTOR;
     private final Player PLAYER;
     private Integer TASK_ID;
@@ -29,9 +29,8 @@ public final class Engine implements IEngine {
     }
     @Override
     public void init() {
-        Arrays.stream(EModifiers.values()).forEach((MODIFIER) -> {
-            ModifierData DATA = MODIFIER.getModifier().getData(this, null);
-            if(DATA.isPermanent()) this.addActiveModifier(DATA);
+        Arrays.stream(EModifierType.values()).forEach(TYPE -> {
+            if(TYPE.getDefaultModifier().getPermanent().get(this)) this.addModifier(TYPE);
         });
     }
     @Override
@@ -50,21 +49,21 @@ public final class Engine implements IEngine {
         if(this.isDisabledGamemode()) return;
         ConfigModel MODEL = this.getInteractor().getConfig();
         final Float[] FINAL_RESULT = {0F};
-        this.MODIFIER_LIST.forEach((MODIFIER) -> FINAL_RESULT[0] = MODIFIER.getValue());
+        this.MODIFIER_LIST.forEach(MODIFIER -> FINAL_RESULT[0] += MODIFIER.getValue().get(this));
         this.PREV_WATER_LEVEL = this.WATER_LEVEL;
         this.addWaterLevel(FINAL_RESULT[0]);
-        if(!EModifiers.ACTION_BAR.getModifier().getData(this, null).isPermanent() && MODEL.ENABLE_AB) {
+        if(MODEL.ENABLE_AB && !this.MODIFIER_LIST.contains(EModifierType.ACTION_BAR.getDefaultModifier())) {
             String VISIBILITY = MODEL.VISIBILITY;
             if(!Objects.equals(String.format(VISIBILITY, this.WATER_LEVEL),
                                String.format(VISIBILITY, this.PREV_WATER_LEVEL))) {
-                this.addActiveModifier(EModifiers.ACTION_BAR);
+                this.addModifier(EModifierType.ACTION_BAR);
             }
         }
         if(this.WATER_LEVEL <= MODEL.CRITICAL_WATER_LEVEL) {
             Arrays.stream(MODEL.CRITICAL_LEVEL_EFFECTS).forEach(EFFECT ->
                     this.PLAYER.addPotionEffect(new PotionEffect(
-                    Objects.requireNonNull(PotionEffectType.getByName(EFFECT.TYPE)),
-                            2, EFFECT.AMPLIFIER))
+                        Objects.requireNonNull(PotionEffectType.getByName(EFFECT.TYPE)), 2, EFFECT.AMPLIFIER)
+                    )
             );
         }
     }
@@ -79,32 +78,33 @@ public final class Engine implements IEngine {
         this.setWaterLevel(RESULT);
     }
     @Override
-    public void addActiveModifier(@NotNull EModifiers EMODIFIER) {
-        this.addActiveModifier(EMODIFIER.getModifier().getData(this, null));
-    }
-    @Override
-    public void addActiveModifier(ModifierData MODIFIER) {
+    public void addModifier(Modifier MODIFIER) {
         this.MODIFIER_LIST.add(MODIFIER);
-        if(MODIFIER.getDuration() != 0) {
+        Long DURATION = MODIFIER.getDuration().get(this);
+        if(DURATION != 0L) {
             Bukkit.getScheduler().runTaskLater(
-                    this.getInteractor().getPlugin(),
-                    () -> this.removeModifier(MODIFIER),
-                    MODIFIER.getDuration()
+                    this.getInteractor().getPlugin(), () -> this.removeModifier(MODIFIER), DURATION
             );
         }
     }
     @Override
-    public void removeModifier(@NotNull ModifierData MODIFIER) {
-        if(!MODIFIER.isPermanent()) {
-            this.MODIFIER_LIST.remove(MODIFIER);
-        }
+    public void addModifier(@NotNull EModifierType TYPE) {
+        this.addModifier(TYPE.getDefaultModifier());
+    }
+    @Override
+    public void removeModifier(Modifier MODIFIER) {
+        this.MODIFIER_LIST.remove(MODIFIER);
+    }
+    @Override
+    public void removeModifier(@NotNull EModifierType TYPE) {
+        this.removeModifier(TYPE.getDefaultModifier());
     }
     @Override
     public Float getWaterLevel() {
         return this.WATER_LEVEL;
     }
     @Override
-    public List<ModifierData> getModifierList() {
+    public List<Modifier> getModifierList() {
         return this.MODIFIER_LIST;
     }
     @Override

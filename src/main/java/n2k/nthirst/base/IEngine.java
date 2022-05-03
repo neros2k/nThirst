@@ -1,4 +1,6 @@
 package n2k.nthirst.base;
+import n2k.nthirst.base.modifier.EModifierType;
+import n2k.nthirst.base.modifier.Modifier;
 import org.bukkit.entity.Player;
 import java.util.List;
 public interface IEngine extends IInitializable {
@@ -7,11 +9,12 @@ public interface IEngine extends IInitializable {
     void tick();
     void setWaterLevel(Float NEW_LEVEL);
     void addWaterLevel(Float VALUE);
-    void addActiveModifier(EModifiers EMODIFIER);
-    void addActiveModifier(ModifierData MODIFIER);
-    void removeModifier(ModifierData MODIFIER);
+    void addModifier(Modifier EMODIFIER);
+    void addModifier(EModifierType MODIFIER);
+    void removeModifier(Modifier EMODIFIER);
+    void removeModifier(EModifierType MODIFIER);
     Float getWaterLevel();
-    List<ModifierData> getModifierList();
+    List<Modifier> getModifierList();
     IInteractor getInteractor();
     Player getPlayer();
     Boolean isDisabledGamemode();
