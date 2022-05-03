@@ -28,7 +28,7 @@ public enum EModifierType {
                 ARG_ENGINE -> EModifierType.getBiomeConfig(ENGINE).DURATION,
                 ARG_ENGINE -> false
         );
-        if(!ENGINE.containsModifier(MODIFIER)) {
+        if(!ENGINE.containsModifier(MODIFIER) && EModifierType.getBiomeConfig(ENGINE) != null) {
             ENGINE.addModifier(MODIFIER);
         }
         return 0F;
