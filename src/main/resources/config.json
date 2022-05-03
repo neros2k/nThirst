@@ -19,9 +19,10 @@
   ],
   "MODIFIERS": {
     "WALK": {"VALUE": -0.001, "DURATION": 4, "PERMANENT": false},
-    "ACTION_BAR": {"VALUE": 0, "DURATION": 20, "PERMANENT": false},
+    "ACTION_BAR": {"VALUE": 0, "DURATION": 80, "PERMANENT": false},
     "FOOD": [
-      {"TYPE": "APPLE", "VALUE": 5}
+      {"TYPE": "APPLE", "VALUE": 5},
+      {"TYPE": "POTION", "VALUE": 20}
     ],
     "BIOMES": [
       {"TYPE": "DESERT", "VALUE": -0.002}
