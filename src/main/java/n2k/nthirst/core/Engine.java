@@ -54,7 +54,7 @@ public final class Engine implements IEngine {
         this.MODIFIER_LIST.forEach(MODIFIER -> FINAL_RESULT[0] += MODIFIER.getValue().get(this));
         this.PREV_WATER_LEVEL = this.WATER_LEVEL;
         this.addWaterLevel(FINAL_RESULT[0]);
-        if(MODEL.ENABLE_AB && !this.MODIFIER_LIST.contains(EModifierType.ACTION_BAR.getDefaultModifier())) {
+        if(MODEL.ENABLE_AB && !this.containsModifier(EModifierType.ACTION_BAR)) {
             String VISIBILITY = MODEL.VISIBILITY;
             if(!Objects.equals(String.format(VISIBILITY, this.WATER_LEVEL),
                                String.format(VISIBILITY, this.PREV_WATER_LEVEL))) {

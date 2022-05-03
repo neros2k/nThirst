@@ -1,5 +1,6 @@
 package n2k.nthirst.core.presenter;
 import n2k.nthirst.base.APresenter;
+import n2k.nthirst.base.IEngine;
 import n2k.nthirst.base.IInteractor;
 import n2k.nthirst.base.model.ConfigModel;
 import n2k.nthirst.base.modifier.EModifierType;
@@ -47,12 +48,13 @@ public final class CommandPresenter extends APresenter implements CommandExecuto
                 Player PLAYER = this.getPlayerByName(ARGS[1]);
                 float VALUE = Float.parseFloat(ARGS[2]);
                 if(PLAYER != null && !Float.isNaN(VALUE)) {
-                    this.getInteractor().getEngine(PLAYER.getName()).addModifier(
+                    IEngine ENGINE = this.getInteractor().getEngine(PLAYER.getName());
+                    ENGINE.addModifier(
                             new Modifier(
                                     EModifierType.SET,
-                                    ENGINE -> VALUE/20,
-                                    ENGINE -> 20L,
-                                    ENGINE -> false
+                                    ARG_ENGINE -> (VALUE - ENGINE.getWaterLevel())/20,
+                                    ARG_ENGINE -> 20L,
+                                    ARG_ENGINE -> false
                             )
                     );
                     SENDER.sendMessage(MODEL.MESSAGES.SET_CMD.replace("{value}", Float.toString(VALUE))
