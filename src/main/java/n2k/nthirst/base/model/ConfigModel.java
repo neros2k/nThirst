@@ -1,7 +1,7 @@
 package n2k.nthirst.base.model;
 public final class ConfigModel {
     public boolean ENABLE_AB;
-    public boolean ENABLE_CRITICAL_VALUE;
+    public boolean ENABLE_CRITICAL_LEVEL;
     public boolean RESET_ON_DEATH;
     public boolean ENABLE_DIRTY_WATER;
     public String AB_MESSAGE;

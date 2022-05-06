@@ -61,7 +61,7 @@ public final class Engine implements IEngine {
                 this.addModifier(EModifierType.ACTION_BAR);
             }
         }
-        if(this.WATER_LEVEL <= MODEL.CRITICAL_WATER_LEVEL && MODEL.ENABLE_CRITICAL_VALUE) {
+        if(this.WATER_LEVEL <= MODEL.CRITICAL_WATER_LEVEL && MODEL.ENABLE_CRITICAL_LEVEL) {
             Arrays.stream(MODEL.CRITICAL_LEVEL_EFFECTS).forEach(EFFECT ->
                     this.PLAYER.addPotionEffect(new PotionEffect(
                         Objects.requireNonNull(PotionEffectType.getByName(EFFECT.TYPE)), 2, EFFECT.AMPLIFIER)

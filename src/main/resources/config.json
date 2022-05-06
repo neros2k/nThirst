@@ -1,6 +1,6 @@
 {
   "ENABLE_AB": true,
-  "ENABLE_CRITICAL_VALUE": true,
+  "ENABLE_CRITICAL_LEVEL": true,
   "RESET_ON_DEATH": true,
   "ENABLE_DIRTY_WATER": true,
   "AB_MESSAGE": "              §7[§b{level}§7]",
