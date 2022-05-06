@@ -2,6 +2,7 @@
   "ENABLE_AB": true,
   "ENABLE_CRITICAL_VALUE": true,
   "RESET_ON_DEATH": true,
+  "ENABLE_DIRTY_WATER": true,
   "AB_MESSAGE": "              §7[§b{level}§7]",
   "DATAFILE_NAME": "thirst_database.db",
   "TABLE_NAME": "water_level",
@@ -12,6 +13,12 @@
   "CRITICAL_WATER_LEVEL": 10,
   "CRITICAL_LEVEL_EFFECTS": [
     {"TYPE": "SLOW", "AMPLIFIER": 2}
+  ],
+  "DIRTY_WATER_EFFECTS": [
+    {"TYPE": "POISON", "DURATION": 400, "AMPLIFIER": 1}
+  ],
+  "CLEAR_WATER_EFFECTS": [
+    {"TYPE": "SPEED", "DURATION": 400, "AMPLIFIER": 1}
   ],
   "DISABLED_GAME_MODES": [
     "CREATIVE",
