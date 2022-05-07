@@ -50,7 +50,9 @@
     },
     "FOOD": [
       {"TYPE": "APPLE", "VALUE": 0.0625, "DURATION": 80},
-      {"TYPE": "POTION", "VALUE": 0.25, "DURATION": 8}
+      {"TYPE": "POTION", "VALUE": 0.25, "DURATION": 8},
+      {"TYPE": "CLEAR_WATER", "VALUE": 0.30, "DURATION": 8},
+      {"TYPE": "DIRTY_WATER", "VALUE": 0.15, "DURATION": 16}
     ],
     "BIOMES": [
       {"TYPE": "DESERT", "VALUE": -0.002, "DURATION": 4}

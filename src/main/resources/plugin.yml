@@ -1,6 +1,6 @@
 name: nThirst
 version: '${project.version}'
-main: n2k.nthirst.nThirst
+main: n2k_.nthirst.nThirst
 api-version: 1.17
 authors: [ n2k ]
 website: github.com/neros2k
