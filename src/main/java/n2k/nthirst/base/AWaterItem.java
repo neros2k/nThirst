@@ -17,8 +17,8 @@ public abstract class AWaterItem extends ItemStack {
         META.setDisplayName(WATER_MODEL.NAME);
         META.setLore(List.of(WATER_MODEL.LORE));
         META.setColor(Color.fromBGR(WATER_MODEL.COLOR[2],
-                WATER_MODEL.COLOR[1],
-                WATER_MODEL.COLOR[0]));
+                                    WATER_MODEL.COLOR[1],
+                                    WATER_MODEL.COLOR[0]));
         List.of(WATER_MODEL.EFFECTS).forEach(EFFECT -> META.addCustomEffect(new PotionEffect(
                 Objects.requireNonNull(PotionEffectType.getByName(EFFECT.TYPE)),
                 EFFECT.DURATION, EFFECT.AMPLIFIER

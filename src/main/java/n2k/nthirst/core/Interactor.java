@@ -6,6 +6,7 @@ import n2k.nthirst.base.ISaver;
 import n2k.nthirst.base.model.ConfigModel;
 import n2k.nthirst.core.presenter.CommandPresenter;
 import n2k.nthirst.core.presenter.EventPresenter;
+import n2k.nthirst.core.presenter.WaterPresenter;
 import n2k.nthirst.nThirst;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -29,7 +30,8 @@ public final class Interactor implements IInteractor {
     public void init() {
         this.PRESENTER_LIST.addAll(List.of(
                         new EventPresenter(this),
-                        new CommandPresenter(this)
+                        new CommandPresenter(this),
+                        new WaterPresenter(this)
         ));
         this.PRESENTER_LIST.forEach(APresenter::init);
         this.SAVER.init();
