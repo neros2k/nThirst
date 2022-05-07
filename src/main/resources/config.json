@@ -23,7 +23,6 @@
   ],
   "CLEAR_WATER": {
     "ENABLED": true,
-    "COLOR": "000000",
     "NAME": "Clear Water",
     "LORE": [],
     "EFFECTS": [
@@ -32,11 +31,11 @@
         "DURATION": 400,
         "AMPLIFIER": 1
       }
-    ]
+    ],
+    "COLOR": [255, 255, 255]
   },
   "DIRTY_WATER": {
     "ENABLED": true,
-    "COLOR": "000000",
     "NAME": "Dirty Water",
     "LORE": [],
     "EFFECTS": [
@@ -45,7 +44,8 @@
         "DURATION": 400,
         "AMPLIFIER": 1
       }
-    ]
+    ],
+    "COLOR": [255, 255, 255]
   },
   "MODIFIERS": {
     "WALK": {
