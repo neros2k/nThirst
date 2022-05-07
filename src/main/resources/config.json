@@ -13,11 +13,7 @@
   "CLEAR_WATER_COOKING_TIME": 180,
   "CLEAR_WATER_EXPIRIENCE": 2.5,
   "CRITICAL_LEVEL_EFFECTS": [
-    {
-      "TYPE": "SLOW",
-      "DURATION": 2,
-      "AMPLIFIER": 2
-    }
+    {"TYPE": "SLOW", "DURATION": 2, "AMPLIFIER": 2}
   ],
   "DISABLED_GAME_MODES": [
     "CREATIVE",
@@ -28,11 +24,7 @@
     "NAME": "Clear Water",
     "LORE": [],
     "EFFECTS": [
-      {
-        "TYPE": "SPEED",
-        "DURATION": 400,
-        "AMPLIFIER": 1
-      }
+      {"TYPE": "SPEED", "DURATION": 400, "AMPLIFIER": 1}
     ],
     "COLOR": [255, 255, 255]
   },
@@ -41,11 +33,7 @@
     "NAME": "Dirty Water",
     "LORE": [],
     "EFFECTS": [
-      {
-        "TYPE": "POISON",
-        "DURATION": 400,
-        "AMPLIFIER": 1
-      }
+      {"TYPE": "POISON", "DURATION": 400, "AMPLIFIER": 1}
     ],
     "COLOR": [255, 255, 255]
   },
@@ -61,23 +49,11 @@
       "PERMANENT": false
     },
     "FOOD": [
-      {
-        "TYPE": "APPLE",
-        "VALUE": 0.0625,
-        "DURATION": 80
-      },
-      {
-        "TYPE": "POTION",
-        "VALUE": 0.25,
-        "DURATION": 8
-      }
+      {"TYPE": "APPLE", "VALUE": 0.0625, "DURATION": 80},
+      {"TYPE": "POTION", "VALUE": 0.25, "DURATION": 8}
     ],
     "BIOMES": [
-      {
-        "TYPE": "DESERT",
-        "VALUE": -0.002,
-        "DURATION": 4
-      }
+      {"TYPE": "DESERT", "VALUE": -0.002, "DURATION": 4}
     ]
   },
   "MESSAGES": {
