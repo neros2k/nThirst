@@ -35,11 +35,15 @@ public final class EventPresenter extends APresenter implements Listener {
     @EventHandler
     public void onPlayerEating(@NotNull PlayerItemConsumeEvent EVENT) {
         IEngine ENGINE = this.getInteractor().getEngine(EVENT.getPlayer().getName());
+        ConfigModel MODEL = ENGINE.getInteractor().getConfig();
         if(EVENT.isCancelled() || ENGINE.isDisabledGamemode()) return;
-        String ITEM = EVENT.getItem().getType().toString();
+        String TYPE = EVENT.getItem().getType().toString();
+        if(TYPE.equals(MODEL.CLEAR_WATER.NAME)) TYPE = "CLEAR_WATER";
+        if(TYPE.equals(MODEL.DIRTY_WATER.NAME)) TYPE = "DIRTY_WATER";
+        final String FINAL_TYPE = TYPE;
         Arrays.stream(this.getInteractor().getConfig().MODIFIERS.FOOD).forEach(
                 FOOD -> {
-                    if(FOOD.TYPE.equals(ITEM)) {
+                    if(FOOD.TYPE.equals(FINAL_TYPE)) {
                         ENGINE.addModifier(new Modifier(
                                 EModifierType.FOOD,
                                 ARG_ENGINE -> FOOD.VALUE,
