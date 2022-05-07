@@ -1,9 +1,9 @@
 package n2k.nthirst.items;
+import n2k.nthirst.base.AWaterItem;
 import n2k.nthirst.base.model.ConfigModel;
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
-public class DirtyWaterItem extends ItemStack {
-    public DirtyWaterItem(ConfigModel MODEL) {
-        super(Material.POTION);
+import org.jetbrains.annotations.NotNull;
+public class DirtyWaterItem extends AWaterItem {
+    public DirtyWaterItem(@NotNull ConfigModel MODEL) {
+        super(MODEL.CLEAR_WATER);
     }
 }
