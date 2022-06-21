@@ -1,4 +1,4 @@
-package n2k_.nthirst.base.model;
+package n2k_.nthirst.base.model.main;
 public final class MessagesModel {
     public String RELOAD_CMD;
     public String SET_CMD;

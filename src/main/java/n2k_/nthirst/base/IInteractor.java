@@ -1,5 +1,5 @@
 package n2k_.nthirst.base;
-import n2k_.nthirst.base.model.ConfigModel;
+import n2k_.nthirst.base.model.main.ConfigModel;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 public interface IInteractor extends IInitializable {

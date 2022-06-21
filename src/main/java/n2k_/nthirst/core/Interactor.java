@@ -3,7 +3,7 @@ import n2k_.nthirst.base.APresenter;
 import n2k_.nthirst.base.IEngine;
 import n2k_.nthirst.base.IInteractor;
 import n2k_.nthirst.base.ISaver;
-import n2k_.nthirst.base.model.ConfigModel;
+import n2k_.nthirst.base.model.main.ConfigModel;
 import n2k_.nthirst.core.presenter.CommandPresenter;
 import n2k_.nthirst.core.presenter.EventPresenter;
 import n2k_.nthirst.core.presenter.WaterPresenter;

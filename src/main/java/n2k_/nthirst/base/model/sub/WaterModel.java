@@ -1,4 +1,4 @@
-package n2k_.nthirst.base.model;
+package n2k_.nthirst.base.model.sub;
 public class WaterModel {
     public boolean ENABLED;
     public String NAME;

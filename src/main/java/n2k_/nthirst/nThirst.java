@@ -1,6 +1,6 @@
 package n2k_.nthirst;
 import n2k_.nthirst.base.IInteractor;
-import n2k_.nthirst.base.model.ConfigModel;
+import n2k_.nthirst.base.model.main.ConfigModel;
 import n2k_.nthirst.core.Interactor;
 import n2k_.nthirst.items.ClearWaterItem;
 import n2k_.nthirst.utils.PAPIExpansion;

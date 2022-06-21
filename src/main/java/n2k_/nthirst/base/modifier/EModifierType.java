@@ -1,9 +1,9 @@
 package n2k_.nthirst.base.modifier;
 import n2k_.nthirst.utils.ActionBar;
 import n2k_.nthirst.base.IEngine;
-import n2k_.nthirst.base.model.ConfigModel;
-import n2k_.nthirst.base.model.ModifiersModel;
-import n2k_.nthirst.base.model.TypeModel;
+import n2k_.nthirst.base.model.main.ConfigModel;
+import n2k_.nthirst.base.model.main.ModifiersModel;
+import n2k_.nthirst.base.model.sub.TypeModel;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.jetbrains.annotations.NotNull;

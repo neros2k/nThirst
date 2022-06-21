@@ -1,7 +1,7 @@
 package n2k_.nthirst.core.presenter;
 import n2k_.nthirst.base.APresenter;
 import n2k_.nthirst.base.IInteractor;
-import n2k_.nthirst.base.model.ConfigModel;
+import n2k_.nthirst.base.model.main.ConfigModel;
 import n2k_.nthirst.items.DirtyWaterItem;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

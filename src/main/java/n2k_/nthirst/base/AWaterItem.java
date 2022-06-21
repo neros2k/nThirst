@@ -1,5 +1,5 @@
 package n2k_.nthirst.base;
-import n2k_.nthirst.base.model.WaterModel;
+import n2k_.nthirst.base.model.sub.WaterModel;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

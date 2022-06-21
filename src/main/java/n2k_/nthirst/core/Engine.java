@@ -2,7 +2,7 @@ package n2k_.nthirst.core;
 import n2k_.nthirst.base.modifier.EModifierType;
 import n2k_.nthirst.base.IEngine;
 import n2k_.nthirst.base.IInteractor;
-import n2k_.nthirst.base.model.ConfigModel;
+import n2k_.nthirst.base.model.main.ConfigModel;
 import n2k_.nthirst.base.modifier.Modifier;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

@@ -1,4 +1,4 @@
-package n2k_.nthirst.base.model;
+package n2k_.nthirst.base.model.main;
 public final class ConfigModel {
     public boolean ENABLE_AB;
     public boolean ENABLE_CRITICAL_LEVEL;
@@ -14,9 +14,5 @@ public final class ConfigModel {
     public int CLEAR_WATER_COOKING_TIME;
     public float CLEAR_WATER_EXPERIENCE;
     public String[] DISABLED_GAME_MODES;
-    public EffectModel[] CRITICAL_LEVEL_EFFECTS;
-    public WaterModel CLEAR_WATER;
-    public WaterModel DIRTY_WATER;
-    public ModifiersModel MODIFIERS;
-    public MessagesModel MESSAGES;
+    public String[] DISABLED_WORLDS;
 }
