@@ -15,6 +15,7 @@ permissions:
       nthirst.command.reload: true
       nthirst.command.set: true
       nthirst.command.get: true
-softdepend:
+depend:
   - JSONConfigAPI
+softdepend:
   - PlaceholderAPI

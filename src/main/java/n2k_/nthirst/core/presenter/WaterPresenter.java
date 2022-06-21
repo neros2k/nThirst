@@ -1,5 +1,5 @@
 package n2k_.nthirst.core.presenter;
-import n2k_.nthirst.base.APresenter;
+import n2k_.nthirst.base.AbstractPresenter;
 import n2k_.nthirst.base.IInteractor;
 import n2k_.nthirst.base.model.main.ItemsModel;
 import n2k_.nthirst.items.DirtyWaterItem;
@@ -10,7 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
-public class WaterPresenter extends APresenter implements Listener {
+public final class WaterPresenter extends AbstractPresenter implements Listener {
     public WaterPresenter(IInteractor INTERACTOR) {
         super(INTERACTOR);
     }

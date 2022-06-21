@@ -1,5 +1,5 @@
 package n2k_.nthirst.core.presenter;
-import n2k_.nthirst.base.APresenter;
+import n2k_.nthirst.base.AbstractPresenter;
 import n2k_.nthirst.base.IEngine;
 import n2k_.nthirst.base.IInteractor;
 import n2k_.nthirst.base.model.main.MessagesModel;
@@ -13,7 +13,7 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import java.util.List;
-public final class CommandPresenter extends APresenter implements CommandExecutor {
+public final class CommandPresenter extends AbstractPresenter implements CommandExecutor {
     public CommandPresenter(IInteractor INTERACTOR) {
         super(INTERACTOR);
     }

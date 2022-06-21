@@ -51,7 +51,7 @@ public final class nThirst extends JavaPlugin {
             ConfigModel MODEL = this.MAIN_CONFIG.getJson();
             NamespacedKey KEY = NamespacedKey.fromString("clear_water");
             assert KEY != null;
-            ItemStack ITEM = new ClearWaterItem(MODEL);
+            ItemStack ITEM = new ClearWaterItem(this.ITEMS_CONFIG.getJson());
             RecipeChoice.MaterialChoice MATERIAL_CHOICE = new RecipeChoice.MaterialChoice(Material.POTION);
             FurnaceRecipe RECIPE = new FurnaceRecipe(
                     KEY, ITEM, MATERIAL_CHOICE,

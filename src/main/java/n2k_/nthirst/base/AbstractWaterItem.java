@@ -9,8 +9,8 @@ import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Objects;
-public abstract class AWaterItem extends ItemStack {
-    public AWaterItem(@NotNull WaterModel WATER_MODEL) {
+public abstract class AbstractWaterItem extends ItemStack {
+    public AbstractWaterItem(@NotNull WaterModel WATER_MODEL) {
         super(Material.POTION);
         PotionMeta META = (PotionMeta) this.getItemMeta();
         assert META != null;

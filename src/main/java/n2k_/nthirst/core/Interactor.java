@@ -1,5 +1,5 @@
 package n2k_.nthirst.core;
-import n2k_.nthirst.base.APresenter;
+import n2k_.nthirst.base.AbstractPresenter;
 import n2k_.nthirst.base.IEngine;
 import n2k_.nthirst.base.IInteractor;
 import n2k_.nthirst.base.ISaver;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 public final class Interactor implements IInteractor {
     private final Map<String, IEngine> ENGINE_MAP;
-    private final List<APresenter> PRESENTER_LIST;
+    private final List<AbstractPresenter> PRESENTER_LIST;
     private final ISaver SAVER;
     private final JavaPlugin PLUGIN;
     public Interactor(JavaPlugin PLUGIN) {
@@ -36,7 +36,7 @@ public final class Interactor implements IInteractor {
                         new CommandPresenter(this),
                         new WaterPresenter(this)
         ));
-        this.PRESENTER_LIST.forEach(APresenter::init);
+        this.PRESENTER_LIST.forEach(AbstractPresenter::init);
         this.SAVER.init();
     }
     @Override

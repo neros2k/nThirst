@@ -1,5 +1,5 @@
 package n2k_.nthirst.core.presenter;
-import n2k_.nthirst.base.APresenter;
+import n2k_.nthirst.base.AbstractPresenter;
 import n2k_.nthirst.base.IEngine;
 import n2k_.nthirst.base.IInteractor;
 import n2k_.nthirst.base.model.main.ConfigModel;
@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
-public final class EventPresenter extends APresenter implements Listener {
+public final class EventPresenter extends AbstractPresenter implements Listener {
     public EventPresenter(IInteractor INTERACTOR) {
         super(INTERACTOR);
     }
