@@ -1,0 +1,20 @@
+{
+  "CLEAR_WATER": {
+    "ENABLED": true,
+    "NAME": "Clear Water",
+    "LORE": [],
+    "EFFECTS": [
+      {"TYPE": "SPEED", "DURATION": 400, "AMPLIFIER": 1}
+    ],
+    "COLOR": [255, 255, 255]
+  },
+  "DIRTY_WATER": {
+    "ENABLED": true,
+    "NAME": "Dirty Water",
+    "LORE": [],
+    "EFFECTS": [
+      {"TYPE": "POISON", "DURATION": 400, "AMPLIFIER": 1}
+    ],
+    "COLOR": [255, 255, 255]
+  }
+}

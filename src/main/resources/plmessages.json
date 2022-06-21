@@ -1,0 +1,20 @@
+{
+  "RELOAD_CMD": "§f§l[§bɴᴛʜɪʀsᴛ§f§l]§f Plugin was successfully reloaded.",
+  "SET_CMD": "§a▪§f {player} water level successfully set to {value}",
+  "GET_CMD": "§a▪§f {player} water level is: {value}",
+  "SET_CMD_ERR": "§c▪§f Error. Usage: /nthirst set <player> <value>",
+  "GET_CMD_ERR": "§c▪§f Error. Usage: /nthirst get <player>",
+  "PERM_ERR": "§c▪§f Error. Not enough permissions.",
+  "UNK_CMD_ERR": "§c▪§f Error. Unknown command. Type: /nthirst help",
+  "HELP_MESSAGE": [
+    "",
+    "§f§l[§b▰▰▰▰▰§f§l]§f nThirst v1.0 by neros2k §f§l[§b▰▰▰▰▰§f§l]",
+    "§b►§f Command list:",
+    "§b▪§f /nthirst §7(help)§f §b-§f Main command",
+    "§b▪§f /nthirst reload §b-§f Reload nThirst",
+    "§b▪§f /nthirst set §7<player> <value> §b-§f Set value",
+    "§b▪§f /nthirst get §7<player> §b-§f Get value",
+    "§f§l[§b▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰§f§l]",
+    ""
+  ]
+}
