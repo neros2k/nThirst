@@ -1,6 +1,8 @@
 package n2k_.nthirst.utils;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import n2k_.nthirst.base.IEngine;
 import n2k_.nthirst.base.IInteractor;
+import n2k_.nthirst.base.model.main.MainModel;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -30,6 +32,11 @@ public final class PAPIExpansion extends PlaceholderExpansion {
         }
         if(PARAM.equals("water_line")) {
             return ActionBar.getLine(INTERACTOR.getEngine(PLAYER.getName()));
+        }
+        if(PARAM.equals("water_ab")) {
+            IEngine ENGINE = INTERACTOR.getEngine(PLAYER.getName());
+            MainModel MODEL = ENGINE.getInteractor().getMainConfig();
+            return ActionBar.get(String.format(MODEL.AB_FORMAT, ENGINE.getWaterLevel()), ENGINE);
         }
         return null;
     }
