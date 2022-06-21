@@ -83,9 +83,9 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>neros2k.jcapi</groupId>
+            <groupId>n2k_.jcapi</groupId>
             <artifactId>JSONConfigAPI</artifactId>
-            <version>1.0</version>
+            <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>me.clip</groupId>

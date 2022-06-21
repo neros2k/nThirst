@@ -1,11 +1,14 @@
 package n2k_.nthirst;
+import n2k_.jcapi.JCApi;
+import n2k_.jcapi.JSONConfig;
 import n2k_.nthirst.base.IInteractor;
 import n2k_.nthirst.base.model.main.ConfigModel;
+import n2k_.nthirst.base.model.main.ItemsModel;
+import n2k_.nthirst.base.model.main.MessagesModel;
+import n2k_.nthirst.base.model.main.ModifiersModel;
 import n2k_.nthirst.core.Interactor;
 import n2k_.nthirst.items.ClearWaterItem;
 import n2k_.nthirst.utils.PAPIExpansion;
-import neros2k.jcapi.JCApi;
-import neros2k.jcapi.JSONConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -17,7 +20,10 @@ import java.util.List;
 import java.util.Optional;
 public final class nThirst extends JavaPlugin {
     private final IInteractor INTERACTOR;
-    private JSONConfig<ConfigModel> JSON_CONFIG;
+    private JSONConfig<ConfigModel> MAIN_CONFIG;
+    private JSONConfig<ItemsModel> ITEMS_CONFIG;
+    private JSONConfig<MessagesModel> MESSAGES_CONFIG;
+    private JSONConfig<ModifiersModel> MODIFIERS_CONFIG;
     public nThirst() {
         this.INTERACTOR = new Interactor(this);
     }
@@ -27,14 +33,23 @@ public final class nThirst extends JavaPlugin {
                 "GitHub: https://github.com/neros2k",
                 "Discord: n2k_#9665").forEach(this.getLogger()::info);
         if(Bukkit.getPluginManager().isPluginEnabled("JSONConfigAPI")) {
-            Optional<JSONConfig<ConfigModel>> JSON_CONFIG_OPT = JCApi.getNew(
-                    this, ConfigModel.class, "config.json");
-            if(JSON_CONFIG_OPT.isPresent()) {
-                this.JSON_CONFIG = JSON_CONFIG_OPT.get();
-                this.JSON_CONFIG.reload();
-            } else return;
+            Optional<JSONConfig<ConfigModel>> MAIN_CONFIG_OPT = JCApi.getNew(
+                    this, ConfigModel.class, "main_config.json");
+            Optional<JSONConfig<ItemsModel>> ITEMS_CONFIG_OPT = JCApi.getNew(
+                    this, ItemsModel.class, "items_config.json");
+            Optional<JSONConfig<MessagesModel>> MESSAGES_CONFIG_OPT = JCApi.getNew(
+                    this, MessagesModel.class, "messages_config.json");
+            Optional<JSONConfig<ModifiersModel>> MODIFIERS_CONFIG_OPT = JCApi.getNew(
+                    this, ModifiersModel.class, "modifiers_config.json");
+            if(MAIN_CONFIG_OPT.isPresent() && ITEMS_CONFIG_OPT.isPresent() &&
+               MESSAGES_CONFIG_OPT.isPresent() && MODIFIERS_CONFIG_OPT.isPresent()) {
+                this.MAIN_CONFIG = MAIN_CONFIG_OPT.get().reload();
+                this.ITEMS_CONFIG = ITEMS_CONFIG_OPT.get().reload();
+                this.MESSAGES_CONFIG = MESSAGES_CONFIG_OPT.get().reload();
+                this.MODIFIERS_CONFIG = MODIFIERS_CONFIG_OPT.get().reload();
+            }
             this.INTERACTOR.init();
-            ConfigModel MODEL = JSON_CONFIG.getJson();
+            ConfigModel MODEL = this.MAIN_CONFIG.getJson();
             NamespacedKey KEY = NamespacedKey.fromString("clear_water");
             assert KEY != null;
             ItemStack ITEM = new ClearWaterItem(MODEL);
@@ -50,8 +65,20 @@ public final class nThirst extends JavaPlugin {
             new PAPIExpansion(this.INTERACTOR).register();
         }
     }
-    public JSONConfig<ConfigModel> getJsonConfig() {
-        assert this.JSON_CONFIG != null;
-        return this.JSON_CONFIG;
+    public JSONConfig<ConfigModel> getMainConfig() {
+        assert this.MAIN_CONFIG != null;
+        return this.MAIN_CONFIG;
+    }
+    public JSONConfig<ItemsModel> getItemsConfig() {
+        assert this.ITEMS_CONFIG != null;
+        return this.ITEMS_CONFIG;
+    }
+    public JSONConfig<MessagesModel> getMessagesConfig() {
+        assert this.MESSAGES_CONFIG != null;
+        return this.MESSAGES_CONFIG;
+    }
+    public JSONConfig<ModifiersModel> getModifiersConfig() {
+        assert this.MODIFIERS_CONFIG != null;
+        return this.MODIFIERS_CONFIG;
     }
 }
