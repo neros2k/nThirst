@@ -4,6 +4,9 @@ import n2k_.nthirst.base.IEngine;
 import n2k_.nthirst.base.IInteractor;
 import n2k_.nthirst.base.ISaver;
 import n2k_.nthirst.base.model.main.ConfigModel;
+import n2k_.nthirst.base.model.main.ItemsModel;
+import n2k_.nthirst.base.model.main.MessagesModel;
+import n2k_.nthirst.base.model.main.ModifiersModel;
 import n2k_.nthirst.core.presenter.CommandPresenter;
 import n2k_.nthirst.core.presenter.EventPresenter;
 import n2k_.nthirst.core.presenter.WaterPresenter;
@@ -63,7 +66,19 @@ public final class Interactor implements IInteractor {
         return this.PLUGIN;
     }
     @Override
-    public ConfigModel getConfig() {
-        return ((nThirst) this.getPlugin()).getJsonConfig().getJson();
+    public ConfigModel getMainConfig() {
+        return ((nThirst) this.getPlugin()).getMainConfig().getJson();
+    }
+    @Override
+    public ItemsModel getItemsConfig() {
+        return ((nThirst) this.getPlugin()).getItemsConfig().getJson();
+    }
+    @Override
+    public MessagesModel getMessagesConfig() {
+        return ((nThirst) this.getPlugin()).getMessagesConfig().getJson();
+    }
+    @Override
+    public ModifiersModel getModifiersConfig() {
+        return ((nThirst) this.getPlugin()).getModifiersConfig().getJson();
     }
 }

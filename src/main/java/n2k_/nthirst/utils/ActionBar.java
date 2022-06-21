@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 public final class ActionBar {
     @Contract(pure = true) @NotNull
     public static String get(@NotNull String FORMAT, @NotNull IEngine ENGINE) {
-        String STR = ENGINE.getInteractor().getConfig().AB_MESSAGE.replace("{level}", FORMAT);
+        String STR = ENGINE.getInteractor().getMainConfig().AB_MESSAGE.replace("{level}", FORMAT);
         if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             STR = PlaceholderAPI.setPlaceholders(ENGINE.getPlayer(), STR);
         }

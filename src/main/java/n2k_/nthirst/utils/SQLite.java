@@ -81,7 +81,7 @@ public final class SQLite implements ISQLite {
         catch(SQLException EXCEPTION) {
             LOGGER.log(Level.SEVERE, "Couldn't execute statement: ", EXCEPTION);
         }
-        return (float) ((nThirst) this.PLUGIN).getJsonConfig().getJson().DEFAULT_WATER_LEVEL;
+        return (float) ((nThirst) this.PLUGIN).getMainConfig().getJson().DEFAULT_WATER_LEVEL;
     }
     @Override
     public void saveValue(@NotNull String PLAYER_NAME, Float VALUE) {

@@ -1,7 +1,7 @@
 package n2k_.nthirst.core.presenter;
 import n2k_.nthirst.base.APresenter;
 import n2k_.nthirst.base.IInteractor;
-import n2k_.nthirst.base.model.main.ConfigModel;
+import n2k_.nthirst.base.model.main.ItemsModel;
 import n2k_.nthirst.items.DirtyWaterItem;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -22,12 +22,12 @@ public class WaterPresenter extends APresenter implements Listener {
     @EventHandler
     public void onPlayerInteract(@NotNull PlayerInteractEvent EVENT) {
         IInteractor INTERACTOR = super.getInteractor();
-        ConfigModel MODEL = INTERACTOR.getConfig();
+        ItemsModel ITEMS_MODEL = INTERACTOR.getItemsConfig();
         Block BLOCK = EVENT.getClickedBlock();
         assert BLOCK != null;
-        if(!MODEL.CLEAR_WATER.ENABLED) return;
+        if(!ITEMS_MODEL.CLEAR_WATER.ENABLED) return;
         if(BLOCK.getType() == Material.WATER || BLOCK.isLiquid()) {
-            EVENT.getPlayer().getInventory().addItem(new DirtyWaterItem(MODEL));
+            EVENT.getPlayer().getInventory().addItem(new DirtyWaterItem(ITEMS_MODEL));
         }
     }
 }

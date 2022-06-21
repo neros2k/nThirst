@@ -9,9 +9,9 @@ public interface IEngine extends IInitializable {
     void tick();
     void setWaterLevel(Float NEW_LEVEL);
     void addWaterLevel(Float VALUE);
-    void addModifier(Modifier EMODIFIER);
+    void addModifier(Modifier MODIFIER);
     void addModifier(EModifierType TYPE);
-    void removeModifier(Modifier EMODIFIER);
+    void removeModifier(Modifier MODIFIER);
     void removeModifier(EModifierType TYPE);
     Boolean containsModifier(Modifier MODIFIER);
     Boolean containsModifier(EModifierType TYPE);

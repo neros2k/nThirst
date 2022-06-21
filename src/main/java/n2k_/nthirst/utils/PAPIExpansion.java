@@ -4,7 +4,6 @@ import n2k_.nthirst.base.IInteractor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
 public final class PAPIExpansion extends PlaceholderExpansion {
     private final IInteractor INTERACTOR;
     public PAPIExpansion(IInteractor INTERACTOR) {

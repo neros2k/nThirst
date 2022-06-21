@@ -2,7 +2,7 @@ package n2k_.nthirst.core.presenter;
 import n2k_.nthirst.base.APresenter;
 import n2k_.nthirst.base.IEngine;
 import n2k_.nthirst.base.IInteractor;
-import n2k_.nthirst.base.model.main.ConfigModel;
+import n2k_.nthirst.base.model.main.MessagesModel;
 import n2k_.nthirst.base.modifier.EModifierType;
 import n2k_.nthirst.base.modifier.Modifier;
 import n2k_.nthirst.nThirst;
@@ -25,23 +25,23 @@ public final class CommandPresenter extends APresenter implements CommandExecuto
     }
     @Override
     public boolean onCommand(@NotNull CommandSender SENDER, @NotNull Command COMMAND, @NotNull String STR, @NotNull String @NotNull [] ARGS) {
-        ConfigModel MODEL = this.getInteractor().getConfig();
+        MessagesModel MESSAGES_MODEL = this.getInteractor().getMessagesConfig();
         if(ARGS.length == 0 || ARGS[0].equals("help")) {
-            List.of(MODEL.MESSAGES.HELP_MESSAGE).forEach(SENDER::sendMessage);
+            List.of(MESSAGES_MODEL.HELP_MESSAGE).forEach(SENDER::sendMessage);
             return true;
         }
         if(ARGS[0].equals("reload")) {
             if(notEnoughPermission("nthirst.command.reload", SENDER)) {
-                SENDER.sendMessage(MODEL.MESSAGES.PERM_ERR);
+                SENDER.sendMessage(MESSAGES_MODEL.PERM_ERR);
                 return true;
             }
-            ((nThirst) this.getInteractor().getPlugin()).getJsonConfig().reload();
-            SENDER.sendMessage(MODEL.MESSAGES.RELOAD_CMD);
+            ((nThirst) this.getInteractor().getPlugin()).getMainConfig().reload();
+            SENDER.sendMessage(MESSAGES_MODEL.RELOAD_CMD);
             return true;
         }
         if(ARGS[0].equals("set")) {
             if(notEnoughPermission("nthirst.command.set", SENDER)) {
-                SENDER.sendMessage(MODEL.MESSAGES.PERM_ERR);
+                SENDER.sendMessage(MESSAGES_MODEL.PERM_ERR);
                 return true;
             }
             if(ARGS.length == 3) {
@@ -57,33 +57,33 @@ public final class CommandPresenter extends APresenter implements CommandExecuto
                                     ARG_ENGINE -> false
                             )
                     );
-                    SENDER.sendMessage(MODEL.MESSAGES.SET_CMD.replace("{value}", Float.toString(VALUE))
+                    SENDER.sendMessage(MESSAGES_MODEL.SET_CMD.replace("{value}", Float.toString(VALUE))
                                                              .replace("{player}", PLAYER.getName()));
                     return true;
                 }
             }
-            SENDER.sendMessage(MODEL.MESSAGES.SET_CMD_ERR);
+            SENDER.sendMessage(MESSAGES_MODEL.SET_CMD_ERR);
             return true;
         }
         if(ARGS[0].equals("get")) {
             if(notEnoughPermission("nthirst.command.get", SENDER)) {
-                SENDER.sendMessage(MODEL.MESSAGES.PERM_ERR);
+                SENDER.sendMessage(MESSAGES_MODEL.PERM_ERR);
                 return true;
             }
             if(ARGS.length == 2) {
                 Player PLAYER = this.getPlayerByName(ARGS[1]);
                 if(PLAYER != null) {
                     Float VALUE = this.getInteractor().getEngine(PLAYER.getName()).getWaterLevel();
-                    String MESSAGE = MODEL.MESSAGES.GET_CMD.replace("{value}", VALUE.toString())
+                    String MESSAGE = MESSAGES_MODEL.GET_CMD.replace("{value}", VALUE.toString())
                                                            .replace("{player}", PLAYER.getName());
                     SENDER.sendMessage(MESSAGE);
                     return true;
                 }
             }
-            SENDER.sendMessage(MODEL.MESSAGES.GET_CMD_ERR);
+            SENDER.sendMessage(MESSAGES_MODEL.GET_CMD_ERR);
             return true;
         }
-        SENDER.sendMessage(MODEL.MESSAGES.UNK_CMD_ERR);
+        SENDER.sendMessage(MESSAGES_MODEL.UNK_CMD_ERR);
         return false;
     }
     private Player getPlayerByName(String NAME) {

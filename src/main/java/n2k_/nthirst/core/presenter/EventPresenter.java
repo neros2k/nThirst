@@ -3,6 +3,7 @@ import n2k_.nthirst.base.APresenter;
 import n2k_.nthirst.base.IEngine;
 import n2k_.nthirst.base.IInteractor;
 import n2k_.nthirst.base.model.main.ConfigModel;
+import n2k_.nthirst.base.model.main.ItemsModel;
 import n2k_.nthirst.base.modifier.EModifierType;
 import n2k_.nthirst.base.modifier.Modifier;
 import org.bukkit.event.EventHandler;
@@ -35,13 +36,13 @@ public final class EventPresenter extends APresenter implements Listener {
     @EventHandler
     public void onPlayerEating(@NotNull PlayerItemConsumeEvent EVENT) {
         IEngine ENGINE = this.getInteractor().getEngine(EVENT.getPlayer().getName());
-        ConfigModel MODEL = ENGINE.getInteractor().getConfig();
+        ItemsModel ITEMS_MODEL = ENGINE.getInteractor().getItemsConfig();
         if(EVENT.isCancelled() || ENGINE.isDisabledGamemode()) return;
         String TYPE = EVENT.getItem().getType().toString();
-        if(TYPE.equals(MODEL.CLEAR_WATER.NAME)) TYPE = "CLEAR_WATER";
-        if(TYPE.equals(MODEL.DIRTY_WATER.NAME)) TYPE = "DIRTY_WATER";
+        if(TYPE.equals(ITEMS_MODEL.CLEAR_WATER.NAME)) TYPE = "CLEAR_WATER";
+        if(TYPE.equals(ITEMS_MODEL.DIRTY_WATER.NAME)) TYPE = "DIRTY_WATER";
         final String FINAL_TYPE = TYPE;
-        Arrays.stream(this.getInteractor().getConfig().MODIFIERS.FOOD).forEach(
+        Arrays.stream(this.getInteractor().getModifiersConfig().FOOD).forEach(
                 FOOD -> {
                     if(FOOD.TYPE.equals(FINAL_TYPE)) {
                         ENGINE.addModifier(new Modifier(
@@ -57,7 +58,7 @@ public final class EventPresenter extends APresenter implements Listener {
     @EventHandler
     public void onPlayerDeath(@NotNull PlayerDeathEvent EVENT) {
         IEngine ENGINE = this.getInteractor().getEngine(EVENT.getEntity().getName());
-        ConfigModel MODEL = this.getInteractor().getConfig();
+        ConfigModel MODEL = this.getInteractor().getMainConfig();
         if(ENGINE.isDisabledGamemode() || !MODEL.RESET_ON_DEATH) return;
         ENGINE.setWaterLevel((float) MODEL.DEFAULT_WATER_LEVEL);
     }

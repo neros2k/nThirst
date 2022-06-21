@@ -48,8 +48,8 @@ public final class Engine implements IEngine {
     }
     @Override
     public void tick() {
-        if(this.isDisabledGamemode()) return;
-        ConfigModel MODEL = this.getInteractor().getConfig();
+        if(this.isDisabledGamemode() || this.isDisabledWorld()) return;
+        ConfigModel MODEL = this.getInteractor().getMainConfig();
         final Float[] FINAL_RESULT = {0F};
         this.MODIFIER_LIST.forEach(MODIFIER -> FINAL_RESULT[0] += MODIFIER.getValue().get(this));
         this.PREV_WATER_LEVEL = this.WATER_LEVEL;
@@ -77,7 +77,7 @@ public final class Engine implements IEngine {
     @Override
     public void addWaterLevel(Float VALUE) {
         float RESULT = this.WATER_LEVEL + VALUE;
-        float MAX_LEVEL = (float) this.getInteractor().getConfig().MAX_WATER_LEVEL;
+        float MAX_LEVEL = (float) this.getInteractor().getMainConfig().MAX_WATER_LEVEL;
         if(RESULT > MAX_LEVEL && !this.containsModifier(EModifierType.SET) && this.WATER_LEVEL <= MAX_LEVEL) RESULT = MAX_LEVEL;
         this.setWaterLevel(RESULT);
     }
@@ -135,6 +135,10 @@ public final class Engine implements IEngine {
     }
     @NotNull
     public Boolean isDisabledGamemode() {
-        return List.of(this.INTERACTOR.getConfig().DISABLED_GAME_MODES).contains(this.PLAYER.getGameMode().name());
+        return List.of(this.INTERACTOR.getMainConfig().DISABLED_GAME_MODES).contains(this.PLAYER.getGameMode().name());
+    }
+    @NotNull
+    public Boolean isDisabledWorld() {
+        return List.of(this.INTERACTOR.getMainConfig().DISABLED_WORLDS).contains(this.PLAYER.getWorld().getName());
     }
 }

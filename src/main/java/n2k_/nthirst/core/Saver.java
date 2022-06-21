@@ -11,7 +11,7 @@ public final class Saver implements ISaver {
     }
     @Override
     public void init() {
-        this.SQ_LITE = new SQLite(INTERACTOR.getPlugin(), INTERACTOR.getConfig().DATAFILE_NAME , INTERACTOR.getConfig().TABLE_NAME);
+        this.SQ_LITE = new SQLite(INTERACTOR.getPlugin(), INTERACTOR.getMainConfig().DATAFILE_NAME , INTERACTOR.getMainConfig().TABLE_NAME);
         this.SQ_LITE.init();
     }
     @Override
