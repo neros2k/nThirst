@@ -6,13 +6,16 @@ authors: [ n2k ]
 website: github.com/neros2k
 commands:
   nthirst:
-    description: The main command.
+    description: Main command.
 permissions:
   nthirst.admin:
     default: op
   nthirst.command.*:
     children:
       nthirst.command.reload: true
+      nthirst.command.add: true
+      nthirst.command.remove: true
+      nthirst.command.reset: true
       nthirst.command.set: true
       nthirst.command.get: true
 depend:

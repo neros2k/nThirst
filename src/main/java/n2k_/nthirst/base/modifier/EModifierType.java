@@ -31,7 +31,7 @@ public enum EModifierType {
         return 0F;
     }, ENGINE -> 0L, ENGINE -> true),
     FOOD(),
-    SET();
+    EDIT();
     private final Modifier DEFAULT_MODIFIER;
     EModifierType(IValue VALUE, IDuration DURATION, IPermanent PERMANENT) {
         this.DEFAULT_MODIFIER = new Modifier(this, VALUE, DURATION, PERMANENT);

@@ -39,6 +39,84 @@ public final class CommandPresenter extends AbstractPresenter implements Command
             SENDER.sendMessage(MESSAGES_MODEL.RELOAD_CMD);
             return true;
         }
+        if(ARGS[0].equals("add")) {
+            if(notEnoughPermission("nthirst.command.add", SENDER)) {
+                SENDER.sendMessage(MESSAGES_MODEL.PERM_ERR);
+                return true;
+            }
+            if(ARGS.length == 3) {
+                Player PLAYER = this.getPlayerByName(ARGS[1]);
+                float VALUE = Float.parseFloat(ARGS[2]);
+                if(PLAYER != null && !Float.isNaN(VALUE)) {
+                    IEngine ENGINE = this.getInteractor().getEngine(PLAYER.getName());
+                    ENGINE.addModifier(
+                            new Modifier(
+                                    EModifierType.EDIT,
+                                    ARG_ENGINE -> VALUE/20,
+                                    ARG_ENGINE -> 20L,
+                                    ARG_ENGINE -> false
+                            )
+                    );
+                    SENDER.sendMessage(MESSAGES_MODEL.ADD_CMD.replace("{value}", Float.toString(VALUE))
+                                                             .replace("{player}", PLAYER.getName()));
+                    return true;
+                }
+            }
+            SENDER.sendMessage(MESSAGES_MODEL.ADD_CMD_ERR);
+            return true;
+        }
+        if(ARGS[0].equals("remove")) {
+            if(notEnoughPermission("nthirst.command.remove", SENDER)) {
+                SENDER.sendMessage(MESSAGES_MODEL.PERM_ERR);
+                return true;
+            }
+            if(ARGS.length == 3) {
+                Player PLAYER = this.getPlayerByName(ARGS[1]);
+                float VALUE = Float.parseFloat(ARGS[2]);
+                if(PLAYER != null && !Float.isNaN(VALUE)) {
+                    IEngine ENGINE = this.getInteractor().getEngine(PLAYER.getName());
+                    ENGINE.addModifier(
+                            new Modifier(
+                                    EModifierType.EDIT,
+                                    ARG_ENGINE -> -(VALUE/20),
+                                    ARG_ENGINE -> 20L,
+                                    ARG_ENGINE -> false
+                            )
+                    );
+                    SENDER.sendMessage(MESSAGES_MODEL.REMOVE_CMD.replace("{value}", Float.toString(VALUE))
+                                                                .replace("{player}", PLAYER.getName()));
+                    return true;
+                }
+            }
+            SENDER.sendMessage(MESSAGES_MODEL.REMOVE_CMD_ERR);
+            return true;
+        }
+        if(ARGS[0].equals("reset")) {
+            if(notEnoughPermission("nthirst.command.reset", SENDER)) {
+                SENDER.sendMessage(MESSAGES_MODEL.PERM_ERR);
+                return true;
+            }
+            if(ARGS.length == 2) {
+                Player PLAYER = this.getPlayerByName(ARGS[1]);
+                float VALUE = this.getInteractor().getMainConfig().DEFAULT_WATER_LEVEL;
+                if(PLAYER != null) {
+                    IEngine ENGINE = this.getInteractor().getEngine(PLAYER.getName());
+                    ENGINE.addModifier(
+                            new Modifier(
+                                    EModifierType.EDIT,
+                                    ARG_ENGINE -> (VALUE - ENGINE.getWaterLevel())/20,
+                                    ARG_ENGINE -> 20L,
+                                    ARG_ENGINE -> false
+                            )
+                    );
+                    SENDER.sendMessage(MESSAGES_MODEL.RESET_CMD.replace("{value}", Float.toString(VALUE))
+                                                               .replace("{player}", PLAYER.getName()));
+                    return true;
+                }
+            }
+            SENDER.sendMessage(MESSAGES_MODEL.RESET_CMD_ERR);
+            return true;
+        }
         if(ARGS[0].equals("set")) {
             if(notEnoughPermission("nthirst.command.set", SENDER)) {
                 SENDER.sendMessage(MESSAGES_MODEL.PERM_ERR);
@@ -51,7 +129,7 @@ public final class CommandPresenter extends AbstractPresenter implements Command
                     IEngine ENGINE = this.getInteractor().getEngine(PLAYER.getName());
                     ENGINE.addModifier(
                             new Modifier(
-                                    EModifierType.SET,
+                                    EModifierType.EDIT,
                                     ARG_ENGINE -> (VALUE - ENGINE.getWaterLevel())/20,
                                     ARG_ENGINE -> 20L,
                                     ARG_ENGINE -> false

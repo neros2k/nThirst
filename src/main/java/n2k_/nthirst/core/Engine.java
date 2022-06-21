@@ -78,7 +78,7 @@ public final class Engine implements IEngine {
     public void addWaterLevel(Float VALUE) {
         float RESULT = this.WATER_LEVEL + VALUE;
         float MAX_LEVEL = (float) this.getInteractor().getMainConfig().MAX_WATER_LEVEL;
-        if(RESULT > MAX_LEVEL && !this.containsModifier(EModifierType.SET) && this.WATER_LEVEL <= MAX_LEVEL) RESULT = MAX_LEVEL;
+        if(RESULT > MAX_LEVEL && !this.containsModifier(EModifierType.EDIT) && this.WATER_LEVEL <= MAX_LEVEL) RESULT = MAX_LEVEL;
         this.setWaterLevel(RESULT);
     }
     @Override
