@@ -3,7 +3,7 @@ import n2k_.nthirst.base.AbstractPresenter;
 import n2k_.nthirst.base.IEngine;
 import n2k_.nthirst.base.IInteractor;
 import n2k_.nthirst.base.ISaver;
-import n2k_.nthirst.base.model.main.ConfigModel;
+import n2k_.nthirst.base.model.main.MainModel;
 import n2k_.nthirst.base.model.main.ItemsModel;
 import n2k_.nthirst.base.model.main.MessagesModel;
 import n2k_.nthirst.base.model.main.ModifiersModel;
@@ -66,7 +66,7 @@ public final class Interactor implements IInteractor {
         return this.PLUGIN;
     }
     @Override
-    public ConfigModel getMainConfig() {
+    public MainModel getMainConfig() {
         return ((nThirst) this.getPlugin()).getMainConfig().getJson();
     }
     @Override

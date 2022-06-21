@@ -2,7 +2,7 @@ package n2k_.nthirst.core;
 import n2k_.nthirst.base.modifier.EModifierType;
 import n2k_.nthirst.base.IEngine;
 import n2k_.nthirst.base.IInteractor;
-import n2k_.nthirst.base.model.main.ConfigModel;
+import n2k_.nthirst.base.model.main.MainModel;
 import n2k_.nthirst.base.modifier.Modifier;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -49,7 +49,7 @@ public final class Engine implements IEngine {
     @Override
     public void tick() {
         if(this.isDisabledGamemode() || this.isDisabledWorld()) return;
-        ConfigModel MODEL = this.getInteractor().getMainConfig();
+        MainModel MODEL = this.getInteractor().getMainConfig();
         final Float[] FINAL_RESULT = {0F};
         this.MODIFIER_LIST.forEach(MODIFIER -> FINAL_RESULT[0] += MODIFIER.getValue().get(this));
         this.PREV_WATER_LEVEL = this.WATER_LEVEL;

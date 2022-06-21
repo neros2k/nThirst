@@ -1,5 +1,5 @@
 package n2k_.nthirst.base;
-import n2k_.nthirst.base.model.main.ConfigModel;
+import n2k_.nthirst.base.model.main.MainModel;
 import n2k_.nthirst.base.model.main.ItemsModel;
 import n2k_.nthirst.base.model.main.MessagesModel;
 import n2k_.nthirst.base.model.main.ModifiersModel;
@@ -10,7 +10,7 @@ public interface IInteractor extends IInitializable {
     void stopEngine(String NAME);
     IEngine getEngine(String NAME);
     JavaPlugin getPlugin();
-    ConfigModel getMainConfig();
+    MainModel getMainConfig();
     ItemsModel getItemsConfig();
     MessagesModel getMessagesConfig();
     ModifiersModel getModifiersConfig();

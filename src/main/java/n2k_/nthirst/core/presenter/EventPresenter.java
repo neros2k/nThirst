@@ -2,7 +2,7 @@ package n2k_.nthirst.core.presenter;
 import n2k_.nthirst.base.AbstractPresenter;
 import n2k_.nthirst.base.IEngine;
 import n2k_.nthirst.base.IInteractor;
-import n2k_.nthirst.base.model.main.ConfigModel;
+import n2k_.nthirst.base.model.main.MainModel;
 import n2k_.nthirst.base.model.main.ItemsModel;
 import n2k_.nthirst.base.modifier.EModifierType;
 import n2k_.nthirst.base.modifier.Modifier;
@@ -58,7 +58,7 @@ public final class EventPresenter extends AbstractPresenter implements Listener 
     @EventHandler
     public void onPlayerDeath(@NotNull PlayerDeathEvent EVENT) {
         IEngine ENGINE = this.getInteractor().getEngine(EVENT.getEntity().getName());
-        ConfigModel MODEL = this.getInteractor().getMainConfig();
+        MainModel MODEL = this.getInteractor().getMainConfig();
         if(ENGINE.isDisabledGamemode() || !MODEL.RESET_ON_DEATH) return;
         ENGINE.setWaterLevel((float) MODEL.DEFAULT_WATER_LEVEL);
     }

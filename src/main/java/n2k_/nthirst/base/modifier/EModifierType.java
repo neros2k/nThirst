@@ -1,7 +1,7 @@
 package n2k_.nthirst.base.modifier;
 import n2k_.nthirst.utils.ActionBar;
 import n2k_.nthirst.base.IEngine;
-import n2k_.nthirst.base.model.main.ConfigModel;
+import n2k_.nthirst.base.model.main.MainModel;
 import n2k_.nthirst.base.model.sub.TypeModel;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -13,7 +13,7 @@ public enum EModifierType {
          ENGINE -> ENGINE.getInteractor().getModifiersConfig().WALK.DURATION,
          ENGINE -> ENGINE.getInteractor().getModifiersConfig().WALK.PERMANENT),
     ACTION_BAR(ENGINE -> {
-        ConfigModel MODEL = ENGINE.getInteractor().getMainConfig();
+        MainModel MODEL = ENGINE.getInteractor().getMainConfig();
         String FORMAT = String.format(MODEL.AB_FORMAT, ENGINE.getWaterLevel());
         ENGINE.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ActionBar.get(FORMAT, ENGINE)));
         return ENGINE.getInteractor().getModifiersConfig().ACTION_BAR.VALUE;

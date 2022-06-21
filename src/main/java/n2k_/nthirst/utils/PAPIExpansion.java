@@ -28,6 +28,9 @@ public final class PAPIExpansion extends PlaceholderExpansion {
             String FORMAT = "%.1f";
             return String.valueOf(String.format(FORMAT, LEVEL));
         }
+        if(PARAM.equals("water_line")) {
+            return ActionBar.getLine(INTERACTOR.getEngine(PLAYER.getName()));
+        }
         return null;
     }
 }

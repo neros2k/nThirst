@@ -2,7 +2,7 @@ package n2k_.nthirst;
 import n2k_.jcapi.JCApi;
 import n2k_.jcapi.JSONConfig;
 import n2k_.nthirst.base.IInteractor;
-import n2k_.nthirst.base.model.main.ConfigModel;
+import n2k_.nthirst.base.model.main.MainModel;
 import n2k_.nthirst.base.model.main.ItemsModel;
 import n2k_.nthirst.base.model.main.MessagesModel;
 import n2k_.nthirst.base.model.main.ModifiersModel;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 public final class nThirst extends JavaPlugin {
     private final IInteractor INTERACTOR;
-    private JSONConfig<ConfigModel> MAIN_CONFIG;
+    private JSONConfig<MainModel> MAIN_CONFIG;
     private JSONConfig<ItemsModel> ITEMS_CONFIG;
     private JSONConfig<MessagesModel> MESSAGES_CONFIG;
     private JSONConfig<ModifiersModel> MODIFIERS_CONFIG;
@@ -33,8 +33,8 @@ public final class nThirst extends JavaPlugin {
                 "GitHub: https://github.com/neros2k",
                 "Discord: n2k_#9665").forEach(this.getLogger()::info);
         if(Bukkit.getPluginManager().isPluginEnabled("JSONConfigAPI")) {
-            Optional<JSONConfig<ConfigModel>> MAIN_CONFIG_OPT = JCApi.getNew(
-                    this, ConfigModel.class, "main_config.json");
+            Optional<JSONConfig<MainModel>> MAIN_CONFIG_OPT = JCApi.getNew(
+                    this, MainModel.class, "main_config.json");
             Optional<JSONConfig<ItemsModel>> ITEMS_CONFIG_OPT = JCApi.getNew(
                     this, ItemsModel.class, "items_config.json");
             Optional<JSONConfig<MessagesModel>> MESSAGES_CONFIG_OPT = JCApi.getNew(
@@ -48,7 +48,7 @@ public final class nThirst extends JavaPlugin {
                 this.MESSAGES_CONFIG = MESSAGES_CONFIG_OPT.get().reload();
                 this.MODIFIERS_CONFIG = MODIFIERS_CONFIG_OPT.get().reload();
             } else return;
-            ConfigModel MODEL = this.MAIN_CONFIG.getJson();
+            MainModel MODEL = this.MAIN_CONFIG.getJson();
             NamespacedKey KEY = NamespacedKey.fromString("clear_water");
             assert KEY != null;
             ItemStack ITEM = new ClearWaterItem(this.ITEMS_CONFIG.getJson());
@@ -75,7 +75,7 @@ public final class nThirst extends JavaPlugin {
             new PAPIExpansion(this.INTERACTOR).register();
         }
     }
-    public JSONConfig<ConfigModel> getMainConfig() {
+    public JSONConfig<MainModel> getMainConfig() {
         assert this.MAIN_CONFIG != null;
         return this.MAIN_CONFIG;
     }
