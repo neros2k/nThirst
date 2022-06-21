@@ -41,7 +41,7 @@ public final class nThirst extends JavaPlugin {
             RecipeChoice.MaterialChoice MATERIAL_CHOICE = new RecipeChoice.MaterialChoice(Material.POTION);
             FurnaceRecipe RECIPE = new FurnaceRecipe(
                     KEY, ITEM, MATERIAL_CHOICE,
-                    MODEL.CLEAR_WATER_EXPIRIENCE,
+                    MODEL.CLEAR_WATER_EXPERIENCE,
                     MODEL.CLEAR_WATER_COOKING_TIME);
             this.getServer().addRecipe(RECIPE);
         }

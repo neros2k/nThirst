@@ -12,7 +12,7 @@ public final class ConfigModel {
     public int MAX_WATER_LEVEL;
     public int CRITICAL_WATER_LEVEL;
     public int CLEAR_WATER_COOKING_TIME;
-    public float CLEAR_WATER_EXPIRIENCE;
+    public float CLEAR_WATER_EXPERIENCE;
     public String[] DISABLED_GAME_MODES;
     public EffectModel[] CRITICAL_LEVEL_EFFECTS;
     public WaterModel CLEAR_WATER;
